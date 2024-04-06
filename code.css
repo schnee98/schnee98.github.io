@@ -1,0 +1,14 @@
+pre {
+  background-color: #1e1e1e; 
+  color: #d4d4d4;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: Consolas, "Courier New", monospace;
+  border-radius: 5px;
+}
+
+.comment { color: #6A9955; } 
+.string { color: #ce9178; } 
+.keyword { color: #569cd6; } 
+.function { color: #dcdcaa; } 
+.syntax { color: #c586c0; }
