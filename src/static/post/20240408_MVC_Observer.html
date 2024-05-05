@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>MVC, 옵저버 패턴 적용하기</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css" />
+    <link rel="stylesheet" href="../../../code.css" />
+    <link rel="stylesheet" href="../../../main.css" />
+    <link rel="stylesheet" href="../../../post.css" />
+    <script defer src="../view/animation/FadeAnimation.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <div
+        class="background"
+        style="background-image: url(../img/background-image.jpg)"
+      ></div>
+      <h1>MVC, 옵저버 패턴 적용하기</h1>
+    </header>
+    <div class="nav">
+      <div class="nav-items">
+        <div class="profile-clickable" onclick="window.location.href='../../../index.html';">
+          <img class="icon profile-pic" src="../img/profile_picture.png" />
+        </div>
+
+        <ul class="nav-menus">
+          <li style="margin-right: 16px">
+            <svg
+              width="36"
+              height="36"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+            >
+              <path
+                stroke="#000000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 12h.01M8 12h.01M16 12h.01"
+              />
+            </svg>
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 18 18">
+              <polyline
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                points="2 12, 16 12"
+              ></polyline>
+              <polyline
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                points="2 5, 16 5"
+              ></polyline>
+            </svg>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <main>
+      <p>
+        저는 코드스쿼드 2024 웹 프론트엔드 과정 중에서 개인 미션들을 진행하며 3주간에 걸쳐
+        <a href="https://github.com/codesquad-members-2024/fe-newsstand/tree/schnee">뉴스스탠드</a
+        >를 구현하고, 2주간에 걸쳐 이벤트 루프 시각화
+        <a
+          href="https://github.com/codesquad-members-2024/fe-eventloop/tree/9d9f5a2f3ddb6176d272291a48cb47ec9987bfc3"
+          >(1주차)</a
+        >,
+        <a href="https://github.com/codesquad-members-2024/fe-eventloop/tree/Saturn">(2주차)</a>를
+        구현하게 되었습니다. 5주라는 짧은 시간 안에도 바닐라 자바스크립트의 특징을 나열하여 외우는
+        것만이 아닌 직접 피부로 느끼며 원리를 이해하는 좋은 시간이었습니다.
+      </p>
+      <p>
+        저의 코드스쿼드 과정 첫 포스트에는 위의 미션들을 구현하는 도중 가장 인상깊게 배울 수 있었던
+        옵저버 패턴에 대해서 이야기 해보겠습니다.
+      </p>
+
+      <h1>디자인 패턴의 필요성을 느낀 사례</h1>
+      <p>
+        저는 지금까지 자바스크립트에서의 상태관리에 대해 무지했었는데, 뉴스스탠드 미션을 구현하며
+        상태관리가 필요하다는 것을 느꼈습니다.
+      </p>
+      <p>다음 이벤트 관리 코드를 보시면서 어디서 제가 필요성을 느꼈는지 설명 드리겠습니다.</p>
+
+      <pre><span class="comment">// fe-newsstand/src/js/view/Events.js</span>
+<span class="syntax">const</span> <span class="keyword">activateGridView</span> = <span class="syntax">() => {</span>
+  <span class="keyword">RenderUtils</span>.<span class="function">fillIcon</span>(<span class="keyword">Clickable</span>.<span class="function">gridViewIcon</span>, <span class="keyword">ACTIVE_FILL_PROPERTY</span>);
+  <span class="keyword">RenderUtils</span>.<span class="function">fillIcon</span>(<span class="keyword">Clickable</span>.<span class="function">gridViewIcon</span>, <span class="keyword">INACTIVE_FILL_PROPERTY</span>);
+    <span class="syntax">if</span> (<span class="keyword">RenderUtils.<span class="function">isPressMenuActive</span></span>(<span class="keyword">allPressMenu</span>))
+      <span class="function">renderGridView</span>(<span class="keyword">Pages</span>.<span class="keyword">grid</span>, <span class="string">"all"</span>);
+    <span class="syntax">if</span> (<span class="keyword">RenderUtils.<span class="function">isPressMenuActive</span></span>(<span class="keyword">subscribedPressMenu</span>))
+      <span class="function">renderGridView</span>(<span class="keyword">Pages</span>.<span class="keyword">subscribedGrid</span>, <span class="string">"subscribed"</span>);
+<span class="syntax">};</span></pre>
+      <p>
+        위 코드에서 볼 수 있듯이, 이벤트가 일어나고 이벤트에 의해 상태가 변할 때마다 렌더링 함수를
+        하나하나 호출 해주고 있습니다. 이벤트를 관리하는 <code>Events.js</code>에
+        `renderListView()`, `renderGridView()` 라는 렌더링 함수들이 호출되는 수는 무려 12개입니다.
+        (...)
+      </p>
+      <p>
+        확장성을 고려하지 않고 코드를 짜고나니 매주 기능이 추가될 때 마다 다시 리팩토링 하고 코드를
+        갈아엎는 것을 반복하는 고생을 할 수 있었습니다.
+      </p>
+      <p>
+        이러한 고생 덕분에 디자인 패턴이 필요하다는 것을 뼈저리게 느낄 수 있었고, 다음 이벤트 루프
+        시각화 미션에는
+        <a href="https://github.com/crongro">크롱</a>의 마스터 클래스 중 배웠던 아키텍처 중에 하나인
+        옵저버 패턴을 학습하고 적용해보자는 목표를 세웠습니다.
+      </p>
+
+      <h1>Architecture (MVC, Observer)</h1>
+
+      <p>
+        아키텍처(Architecture)란 구현한 코드들을 어떻게 구성하는지, 어떤 관계를 가지며 구조를 설계
+        하는지를 결정하는 방법입니다.
+      </p>
+
+      <p>
+        아키텍처는 소프트웨어쪽에서
+        <a
+          href="https://ko.wikipedia.org/wiki/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4_%EA%B5%AC%EC%A1%B0"
+          >이미 아주 오래 전인 1960년대 말</a
+        >부터 그 설계 방법에 대해 관심이 생기기 시작하였고, 제 개인적으로도 이번 미션을 하면서
+        아키텍처를 설계하는 부분은 아무리 작은 프로젝트를 만든다고 하더라도 필연적일 수 밖에 없다는
+        것을 느꼈습니다.
+      </p>
+      <p>
+        아키텍처의 핵심은 소프트웨어의 관심사항들, 예를 들어, 실제 데이터들을 담고 있는
+        <code>Model</code>, 사용자에게 보여지는 <code>View</code>, 그리고 이 둘을 관리하고 조작하는
+        <code>Logic</code>을 어떻게 분리하고 어떤 방식으로 흐를지 결정하는 것입니다.
+      </p>
+      <p>
+        프론트엔드에서의 아키텍처는 대중적으로 MVC, MVVM, 옵저버(Observer), Flux 등이 있는데, 이
+        아키텍처들은 각 문제 상황마다 알맞은 아키텍처들일 뿐, 어느 한 패턴이 무조건 좋다고 할 수
+        없습니다. 한 패턴에 고집하는 것은 위험하고 좁은 사고로 이어질 수 있습니다.
+      </p>
+      <p>
+        이번 포스트에서는 제가 적용해보았던 옵저버와 MVC 패턴에 대해서 짧게 짚고 넘어가보도록
+        하겠습니다.
+      </p>
+
+      <h2>MVC</h2>
+
+      <p>
+        MVC 패턴은 결론적으로 말하자면, 위에서 언급한 <code>Model</code>과 <code>View</code>를
+        관리하는 <code>Controller</code>가 이 둘의 중간 역할로서 추가되어, 사용자의 입력을 받고,
+        입력을 토대로 실제 데이터와 사용자에게 보여지는 화면을 조작하는 패턴입니다.
+      </p>
+
+      <img src="../img/mvc.png" />
+
+      <p>
+        위는 일반적인 MVC 패턴의 동작 흐름을 표현한 그림이고, 이를 알기 쉽게 정리한 순서는 다음과
+        같습니다.
+      </p>
+
+      <ol>
+        <li>먼저 <code>Controller</code>가 사용자의 요청(Request)를 받습니다.</li>
+        <li>
+          <code>Controller</code>는 서비스(Service)에서 비즈니스 로직을 처리하고, 처리한 결과를
+          <code>Model</code>에 담습니다.
+        </li>
+        <li>
+          <code>Model</code>에 저장된 결과를 바탕으로 시각적인 요소를 담당하는 <code>View</code>를
+          제어하여 사용자에게 전달합니다.
+        </li>
+      </ol>
+
+      <br />
+
+      <p>
+        MVC 패턴은 <strong>컴포넌트의 명확한 역할 분리로 서로간의 결합도를 낮출 수 있다</strong>는
+        대표적인 장점을 가지고 있기 때문에 강력한 디자인 패턴이라고 평가받고 있습니다.
+      </p>
+
+      <p>
+        그러나 소프트웨어의 복잡도가 올라가면 올라갈 수록,
+        <strong
+          >하나의 <code>Controller</code>에 다수의 <code>Model</code>과 <code>View</code>가 연결되어
+          의존성이 커질 수 있고, <code>Controller</code>는 모든 관리 역할을 혼자 맡게되는
+          Massive-View-Controller가 될 수 있는 가능성</strong
+        >이 있기 때문에, MVC 패턴으로만 소프트웨어를 구현하고 확장한다면, 한계점에 빨리 이를 수
+        있습니다.
+      </p>
+
+      <p>이를 보완하기 위해서 아래와 같은 패턴들이 등장하였습니다.</p>
+
+      <ul>
+        <li>MVVM</li>
+        <li>MVP</li>
+        <li>MVW</li>
+        <li>Flux</li>
+      </ul>
+
+      <p>
+        각 패턴들은 MVC 패턴의 한계점에 보완점을 제시하지만, 패턴마다 장단점이 분명하게 존재하기
+        때문에, 이를 잘 고려하고 사용해야 할 것입니다.
+      </p>
+
+      <h2>옵저버</h2>
+
+      <p>
+        옵저버 패턴은 옵저버(Observer)와 옵저버블(Observable) 객체들의 관계를 나타내는데, 옵저버가
+        옵저버블 객체를 구독하고, 옵저버블의 상태 변화가 있을 때, 구독한 옵저버에게 알림을 보낸 후,
+        옵저버는 변화한 데이터에 맞춰 처리를 다시 하는 패턴입니다.
+      </p>
+
+      <img src="../img/observer.jpeg" />
+
+      <p>
+        위는 옵저버 패턴의 일반적인 모습이며, <code>View</code>는 옵저버의 역할을,
+        <code>Model</code>은 옵저버블의 역할을 맡습니다.
+      </p>
+
+      <p>이에 이어 옵저버 패턴의 특징들은 다음과 같습니다.</p>
+
+      <ol>
+        <li>옵저버블과 옵저버의 관계는 1대1 혹은 1대N의 관계를 가집니다.</li>
+        <li>위 그림에서 알 수 있듯이, 데이터의 흐름은 단방향으로 흐릅니다.</li>
+        <li>
+          옵저버는 데이터를 push 방식으로 받아 여러 군데에서 호출을 할 필요가 없어집니다.
+          <span class="text-line-through">(저의 뉴스스탠드 미션에서의 고생이 떠오르네요.)</span>
+        </li>
+      </ol>
+
+      <br />
+
+      <p>
+        옵저버 패턴은 옵저버가 옵저버블의 상태를 주기적으로 조회할 필요가 없어지며,
+        <strong>상태 변화가 일어나면 상태를 자동적으로 감지 할 수 있는 큰 장점</strong>이 있습니다.
+      </p>
+
+      <p>
+        그리고 Controller와 같은 중재자를 통하여
+        <strong
+          >데이터 변경을 감지해야 하는 객체 <code>Model</code> 와 상태를 변경하는 객체
+          <code>View</code> 의 클래스 의존성을 서로 줄일 수 있으며(Loose Coupling)</strong
+        >, 이는 객체 지향 프로그래밍에서 중요한 원칙인 <strong>Open Closed Principle</strong> 을
+        준수합니다.
+      </p>
+
+      <p>그럼에도 불구하고 옵저버 패턴도 마냥 장점만 있는 것이 아닙니다.</p>
+
+      <p>
+        옵저버 패턴은 다수의 옵저버가 독립적이지 않고 순서가 중요하다면, 다소 다루기 어려운 패턴이
+        될 수 있습니다. 왜냐하면 옵저버블은
+        <strong>알림 순서를 제어할 수 없기 때문입니다. (JDK 권고 사항)</strong>
+      </p>
+
+      <p>
+        이어 Loose Coupling은
+        <strong>어떤 옵저버가 문제를 일으키고 있는지 추적하기가 어려워지기 때문에</strong> 코드의
+        복잡도를 증가시킬 수 있습니다.
+      </p>
+
+      <p>
+        마지막으로 옵저버가 구독한 상태를 유지하고 있으면,
+        <strong
+          >사용되지 않는 상태일 때도 계속 메모리를 차지하고 있을 수 있어 메모리 누수의 위험</strong
+        >이 있습니다.
+      </p>
+
+      <br />
+
+      <p>저는 위 패턴들을 학습하기 위해 이벤트 루프 시각화 미션에서 적용을 해보았습니다.</p>
+
+      <h1>MVC, 옵저버 패턴을 적용한 사례</h1>
+
+      <p>
+        저는 이번 미션에서 브라우저가 어떻게 비동기 콜백 함수들을 등록하고, 이벤트 루프가 이를
+        감지하여 실행 시키는지를 입력받은 코드를 기반으로 애니메이션을 통해 보여주는 기능을 구현하게
+        되었습니다.
+      </p>
+
+      <p>아래에서 기능의 동작 예시(프리뷰)를 보실 수 있습니다.</p>
+
+      <img src="../img/event_loop_preview.gif" />
+
+      <br />
+
+      <p>
+        저는 위 기능을 구현할 때, 전체적인 기능을 <code>Model</code>, <code>View</code>,
+        <code>Controller</code>로 나누어 설계를 하였습니다. 그리고 각 부분들의 역할은 다음과
+        같습니다.
+      </p>
+
+      <ol>
+        <li><code>Model</code>: 입력받은 코드에서 콜백 함수를 파싱하고, 콜백 함수를 저장합니다.</li>
+        <li>
+          <code>View</code>: 입력받을 부분, 콜백 함수, 콜백 함수의 흐름 그리고 애니메이션
+          렌더링합니다.
+        </li>
+        <li>
+          <code>Controller</code>: View를 통해 입력받고, Model에 전달하고, 데이터가 어떻게 변경될 지
+          결정합니다.
+        </li>
+      </ol>
+
+      <br />
+
+      <p>
+        그리고 옵저버 패턴을 이용하여 <code>View</code>가 <code>Model</code>을 구독하게 하고,
+        <code>Model</code>에 상태 변화가 생겼을 때, <code>View</code>도 자동적으로 변화하도록
+        구현하였습니다.
+      </p>
+
+      <pre>
+<span class="comment">// Controller</span>
+<span class="syntax">class</span> <span class="keyword">EventLoop</span> <span class="syntax">{</span>
+      
+  <span class="syntax">constructor</span>(<span class="keyword">componentBox</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>.<span class="variable">componentBox</span> = <span class="keyword">componentBox</span>;
+    <span class="keyword">this</span>.<span class="function">initializeEventListener</span>();
+    <span class="keyword">this</span>.<span class="function">initializeSubscribes</span>();
+  <span class="syntax">}</span>
+      
+  <span class="function">initializeEventListener</span>() <span class="syntax">{</span>
+    <span class="keyword">this</span>.<span class="variable">submitButton</span>.<span class="function">addEventListener</span>(<span class="string">"click"</span>, <span class="syntax">()</span> => <span class="keyword">this</span>.<span class="function">handleSubmit</span>());
+  <span class="syntax">}</span>
+      
+  <span class="function">initializeSubscribes</span>() <span class="syntax">{</span>
+    <span class="keyword">const</span> <span class="variable">componentBoxList</span> = <span class="function">Object.values</span>(<span class="keyword">this</span>.<span class="variable">componentBox</span>).<span class="function">filter</span>(
+      (<span class="variable">box</span>) => <span class="variable">box</span> !== <span class="keyword">this</span>.<span class="variable">componentBox</span>.<span class="variable">callbacks</span>
+    );
+      
+    <span class="variable">componentBoxList</span>.<span class="function">forEach</span>((<span class="variable">box</span>) => <span class="variable">box</span>.<span class="function">subscribe</span>(<span class="function">renderComponents</span>));
+  <span class="syntax">}</span>
+      
+  <span class="comment">// ...</span>
+<span class="syntax">}</span>
+      </pre>
+
+      <br />
+
+      <p>
+        먼저 <code>Controller</code>는 옵저버 <code>renderComponents()</code> 가 구독할 객체를
+        정해주고, 객체를 구독하도록 합니다.
+      </p>
+
+      <br />
+
+      <pre>
+<span class="comment">// Model</span>
+
+<span class="syntax">class</span> <span class="keyword">Observable</span> <span class="syntax">{</span>
+  <span class="syntax">constructor</span>() <span class="syntax">{</span>
+    <span class="keyword">this</span>._<span class="variable">observers</span> = <span class="function">new</span> <span class="keyword">Set</span>();
+  <span class="syntax">}</span>
+
+  <span class="function">subscribe</span>(<span class="keyword">observer</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>._<span class="variable">observers</span>.<span class="function">add</span>(<span class="keyword">observer</span>);
+  <span class="syntax">}</span>
+
+  <span class="function">unsubscribe</span>(<span class="keyword">observer</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>._<span class="variable">observers</span>.<span class="function">delete</span>(<span class="keyword">observer</span>);
+  <span class="syntax">}</span>
+
+  <span class="function">notify</span>(<span class="keyword">data</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>._<span class="variable">observers</span>.<span class="function">forEach</span>((<span class="keyword">observer</span>) => <span class="keyword">observer</span>(<span class="keyword">data</span>));
+  <span class="syntax">}</span>
+<span class="syntax">}</span>
+
+<span class="syntax">class</span> <span class="keyword">ComponentBox</span> <span class="syntax">extends</span> <span class="keyword">Observable</span> <span class="syntax">{</span>
+  <span class="syntax">constructor</span>(<span class="keyword">className</span>, <span class="keyword">pushAnimation</span>, <span class="keyword">popAnimation</span>) <span class="syntax">{</span>
+    <span class="keyword">super();</span>
+    <span class="keyword">this</span>.<span class="variable">className</span> = <span class="keyword">className</span>;
+    <span class="keyword">this</span>.<span class="variable">components</span> = <span class="syntax">[];</span>
+    <span class="keyword">this</span>.<span class="variable">pushAnimation</span> = <span class="keyword">pushAnimation</span>;
+    <span class="keyword">this</span>.<span class="variable">popAnimation</span> = <span class="keyword">popAnimation</span>;
+  <span class="syntax">}</span>
+      
+  <span class="comment">// ...</span>
+      
+  <span class="syntax">pushComponent</span>(<span class="keyword">component</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>.<span class="variable">components</span>.<span class="function">push</span>(<span class="keyword">component</span>);
+      
+    <span class="keyword">const</span> <span class="variable">contents</span> = <span class="keyword">this</span>.<span class="variable">components</span>.<span class="function">map</span>((<span class="variable">component</span>) => <span class="variable">component</span>.<span class="function">toString</span>());
+      
+    <span class="keyword">this</span>.<span class="function">notify</span>(<span class="keyword">this</span>.<span class="variable">className</span>, <span class="variable">contents</span>);
+    <span class="syntax">if</span> (<span class="keyword">this</span>.<span class="variable">pushAnimation</span>) <span class="keyword">this</span>.<span class="variable">pushAnimation</span>(<span class="keyword">this</span>.<span class="variable">className</span>);
+  <span class="syntax">}</span>
+      
+  <span class="syntax">notify</span>(<span class="keyword">className</span>, <span class="keyword">contents</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>._<span class="variable">observers</span>.<span class="function">forEach</span>((<span class="variable">observer</span>) => <span class="variable">observer</span>({<span class="keyword">className</span>, <span class="keyword">contents</span>}));
+  <span class="syntax">}</span>
+    
+  <span class="comment">// ...</span>
+<span class="syntax">}</span>
+      </pre>
+
+      <p>
+        옵저버블에 해당하는 <code>Model</code>은 콜백 함수를 컴포넌트로서 받아 배열에 저장합니다.
+        이를 통해 상태변화가 일어나기 때문에 콜백 함수의 내용을 <code>notify()</code> 메서드로
+        구독한 옵저버 <code>renderComponents()</code> 에게 알려주어 리렌더링을 하도록 합니다.
+      </p>
+
+      <h1>구현 후 느낀 점</h1>
+
+      <p>
+        이번 미션에서 MVC와 옵저버 패턴을 활용하면서 느낀 점은 설계를 할 때, 구조가 이전보다
+        명확해지는 것을 느낄 수 있었습니다.
+      </p>
+
+      <pre>
+<span class="comment">// 뉴스스탠드에서의 폴더 구조</span>
+└─src
+    ├─css
+    │      index.css
+    │      
+    ├─data
+    │      news.json
+    │      
+    ├─img
+    │      PlusSymbol.svg
+    │      PressLogo.png
+    │      
+    └─js
+        │  Main.js
+        │  
+        ├─api
+        │     NewsApi.js
+        │      
+        ├─crawler
+        │     Crawler.js
+        │     NewsCrawler.js
+        │      
+        └─view
+              Events.js
+              GridView.js
+              ListView.js
+              NewsStand.js
+              NewsTitle.js
+              Notification.js
+              PressTable.js
+              Utils.js
+      </pre>
+
+      <p>
+        뭔가 렌더링만 할 것 같은 분위기입니다. 실제로는 페이지의 상태를 저장하고,
+        <code>json-server</code>에서 데이터를 읽고, 쓰는 동작 등등이 있습니다.
+      </p>
+
+      <pre>
+<span class="comment">// 이벤트 루프 시각화에서의 폴더 구조</span>
+└─src
+  ├─css
+  │      style.css
+  │      
+  └─js
+      │  Main.js
+      │  
+      ├─controller
+      │     EventLoop.js
+      │      
+      ├─model
+      │     Callback.js
+      │     CodeParser.js
+      │     ComponentBox.js
+      │     ParserUtils.js
+      │      
+      └─view
+            Animation.js
+            Components.js
+      </pre>
+
+      <p>
+        뉴스스탠드에서의 파일들을 비교하면, 어떤 부분이 데이터 정보를 담고 있고, 어떤 부분이
+        사용자에게 보여질지 역할과 관심사가 분리되어 있습니다.
+      </p>
+
+      <br />
+
+      <p>그리고 옵저버를 통해 불필요한 호출을 매우 많이 줄일 수 있었습니다.</p>
+
+      <pre>
+<span class="comment">// 뉴스스탠드에서의 Events.js</span>
+<span class="syntax">const</span> <span class="keyword">activateListView</span> = <span class="syntax">()</span> <span class="syntax">=&gt;</span> <span class="syntax">{</span>
+  <span class="keyword">RenderUtils</span>.<span class="function">fillIcon</span>(<span class="keyword">Clickable</span>.<span class="variable">listViewIcon</span>, <span class="variable">ACTIVE_FILL_PROPERTY</span>);
+  <span class="keyword">RenderUtils</span>.<span class="function">fillIcon</span>(<span class="keyword">Clickable</span>.<span class="variable">gridViewIcon</span>, <span class="variable">INACTIVE_FILL_PROPERTY</span>);
+  <span class="syntax">if</span> (<span class="keyword">RenderUtils</span>.<span class="function">isPressMenuActive</span>(<span class="keyword">allPressMenu</span>))
+    <span class="keyword">renderListView</span>(<span class="keyword">Pages</span>.<span class="variable">list</span>, <span class="string">"all"</span>); <span class="comment">// 첫번째 렌더링 호출 코드</span>
+  <span class="syntax">if</span> (<span class="keyword">RenderUtils</span>.<span class="function">isPressMenuActive</span>(<span class="keyword">subscribedPressMenu</span>))
+    <span class="keyword">renderListView</span>(<span class="keyword">Pages</span>.<span class="variable">subscribedList</span>, <span class="string">"subscribed"</span>); <span class="comment">// 두번째 렌더링 호출 코드</span>
+<span class="syntax">}</span>;
+
+<span class="syntax">const</span> <span class="keyword">activateAllPress</span> = <span class="syntax">()</span> <span class="syntax">=&gt;</span> <span class="syntax">{</span>
+  <span class="function">setPressMenuAsSelected</span>(<span class="keyword">allPressMenu</span>);
+  <span class="function">setPressMenuAsUnselected</span>(<span class="keyword">subscribedPressMenu</span>);
+  <span class="syntax">if</span> (<span class="keyword">RenderUtils</span>.<span class="function">isIconActive</span>(<span class="keyword">Clickable</span>.<span class="variable">gridViewIcon</span>))
+    <span class="keyword">renderGridView</span>(<span class="keyword">Pages</span>.<span class="variable">grid</span>, <span class="string">"all"</span>); <span class="comment">// 세번째 렌더링... 호출 코드</span>
+  <span class="syntax">if</span> (<span class="keyword">RenderUtils</span>.<span class="function">isIconActive</span>(<span class="keyword">Clickable</span>.<span class="variable">listViewIcon</span>))
+    <span class="keyword">renderListView</span>(<span class="keyword">Pages</span>.<span class="variable">list</span>, <span class="string">"all"</span>); <span class="comment">// 네번째... 어?</span>
+<span class="syntax">}</span>;
+
+<span class="comment">// 그 외 8번의 렌더링 호출 ...</span>
+      </pre>
+
+      <p>
+        포스트 초반에 언급드렸던 코드와 이어 이 이벤트 핸들링 함수들은 렌더링 함수를 매우 강하게
+        의존하고 있습니다. 심지어 참조도 여러번 하고 있어 만약에 이 렌더링 함수가 아주 살짝만
+        바뀌더라도 전체 코드를 뒤짚어 엎어야하는 끔찍한 상황을 맞이할 수 있습니다.
+        <span class="text-line-through">(심지어 맞이 했었습니다...)</span>
+      </p>
+
+      <p>이런 호출 코드는 다음 미션에서 옵저버 패턴을 통해 단 한줄로 줄일 수 있었습니다.</p>
+
+      <pre>
+<span class="comment">// Controller</span>
+<span class="syntax">class</span> <span class="keyword">EventLoop</span> <span class="syntax">{</span>
+      
+  <span class="syntax">constructor</span>(<span class="keyword">componentBox</span>) <span class="syntax">{</span>
+    <span class="keyword">this</span>.<span class="variable">componentBox</span> = <span class="keyword">componentBox</span>;
+    <span class="keyword">this</span>.<span class="function">initializeEventListener</span>();
+    <span class="keyword">this</span>.<span class="function">initializeSubscribes</span>();
+  <span class="syntax">}</span>
+      
+  <span class="function">initializeEventListener</span>() <span class="syntax">{</span>
+    <span class="keyword">this</span>.<span class="variable">submitButton</span>.<span class="function">addEventListener</span>(<span class="string">"click"</span>, <span class="syntax">()</span> => <span class="keyword">this</span>.<span class="function">handleSubmit</span>());
+  <span class="syntax">}</span>
+      
+  <span class="function">initializeSubscribes</span>() <span class="syntax">{</span>
+    <span class="keyword">const</span> <span class="variable">componentBoxList</span> = <span class="function">Object.values</span>(<span class="keyword">this</span>.<span class="variable">componentBox</span>).<span class="function">filter</span>(
+      (<span class="variable">box</span>) => <span class="variable">box</span> !== <span class="keyword">this</span>.<span class="variable">componentBox</span>.<span class="variable">callbacks</span>
+    );
+      
+    <span class="variable">componentBoxList</span>.<span class="function">forEach</span>((<span class="variable">box</span>) => <span class="variable">box</span>.<span class="function">subscribe</span>(<span class="function">renderComponents</span>));
+  <span class="syntax">}</span>
+      
+  <span class="comment">// ...</span>
+<span class="syntax">}</span>
+      </pre>
+
+      <p>
+        <code>box.subscribe(renderComponents)</code> 로 <code>Model</code>을 한번만 구독해주면
+        상태변화가 일어 났을 때, 자동으로 리렌더링 되어 매번 렌더링 함수를 코드를 수동으로 넣어 호출
+        해줄 필요가 없었고, 의존성도 적어져 <code>Model</code>이나 렌더링 함수를 확장 하였을 때,
+        모든 코드를 일일히 바꿀 필요가 없었습니다.
+      </p>
+
+      <p>
+        그러나 어려운 점도 존재했습니다. 제 프로젝트의 프리뷰를 보시면, 콜백 함수들이 추가 될 때의
+        애니메이션, 삭제 될 때의 애니메이션이 다르고, 삭제 될 때의 애니메이션은 애니메이션이 실행
+        되고 나서 상태변화가 일어나야 자연스러워지기 때문에, 이를 옵저버 패턴에 적용하려고 하니
+        복잡도가 올라갔습니다.
+      </p>
+
+      <pre>
+<span class="comment">// ComponentBox 클래스 정의, Observable을 상속</span>
+<span class="keyword">class</span> <span class="class-name">ComponentBox</span> <span class="keyword">extends</span> <span class="class-name">Observable</span> <span class="syntax">{</span>
+  <span class="keyword">constructor</span>(<span class="variable">className</span>, <span class="variable">pushAnimation</span>, <span class="variable">popAnimation</span>) <span class="syntax">{</span>
+    <span class="keyword">super</span>();
+    <span class="keyword">this</span>.<span class="property">className</span> = <span class="variable">className</span>;
+    <span class="keyword">this</span>.<span class="property">components</span> = <span class="syntax">[]</span>;
+    <span class="keyword">this</span>.<span class="property">pushAnimation</span> = <span class="variable">pushAnimation</span>;
+    <span class="keyword">this</span>.<span class="property">popAnimation</span> = <span class="variable">popAnimation</span>;
+  <span class="syntax">}</span>
+
+  <span class="keyword">pushComponent</span>(<span class="variable">component</span>) <span class="syntax">{</span>
+    <span class="comment">// ...</span>
+
+    <span class="keyword">this</span>.<span class="method">notify</span>(<span class="keyword">this</span>.<span class="property">className</span>, <span class="variable">contents</span>);
+    <span class="syntax">if</span> (<span class="keyword">this</span>.<span class="property">pushAnimation</span>) <span class="keyword">this</span>.<span class="property">pushAnimation</span>(<span class="keyword">this</span>.<span class="property">className</span>);
+  <span class="syntax">}</span>
+
+  <span class="keyword">unshiftComponent</span>() <span class="syntax">{</span>
+    <span class="syntax">if</span> (<span class="keyword">this</span>.<span class="property">popAnimation</span>) <span class="keyword">this</span>.<span class="property">popAnimation</span>(<span class="keyword">this</span>.<span class="property">className</span>);
+    <span class="comment">// ...</span>
+
+    <span class="keyword">setTimeout</span>(() <span class="syntax">=&gt;</span> <span class="syntax">{</span>
+      <span class="keyword">this</span>.<span class="method">notify</span>(<span class="keyword">this</span>.<span class="property">className</span>, <span class="variable">contents</span>);
+    <span class="syntax">}</span>, <span class="keyword">DELAY</span>);
+  <span class="syntax">}</span>
+
+  <span class="comment">// ...</span>
+<span class="syntax">}</span>
+      </pre>
+
+      <p>
+        사실 애니메이션도 옵저버의 역할을 할 수 있음에도 불구하고, 애니메이션의 순서를 구현하기 위해
+        구독을 하지 않고 매개변수로 받는 뭔가 아이러니한 상황이 생겨버렸습니다. (...)
+      </p>
+
+      <h1>마치며</h1>
+
+      <br />
+
+      <p>
+        이번 프로젝트를 통해서 두가지의 디자인 패턴을 학습하였고, 각각의 장점과 단점을 몸소 피부로
+        느껴보는 시간을 가질 수 있었습니다. 그러나 이는 아주 작은 부분이었음을 인지하고 있기에,
+        앞으로 있을 미션에서도 여러번 적용해보고 싶고, 다른 디자인 패턴 (<code>Flux</code>,
+        <code>MVVM</code> 등) 도 적용해보며 각 상황마다 어떤 방법이 <strong>Best Fit</strong>인지
+        확인 해보려고 합니다.
+      </p>
+
+      <h2>참고 자료</h2>
+
+      <ul>
+        <li>
+          <a
+            href="https://ko.wikipedia.org/wiki/%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4_%EA%B5%AC%EC%A1%B0"
+            >소프트웨어 구조</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://medium.com/@junep/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-business-logic%EC%9D%98-%EB%B6%84%EB%A6%AC-adc10ae881ab"
+            >프론트엔드 아키텍처: Business Logic의 분리</a
+          >
+        </li>
+        <li>
+          <a
+            href="https://velog.io/@langoustine/%EC%97%AC%EA%B8%B0%EB%8F%84-MVC-%EC%A0%80%EA%B8%B0%EB%8F%84-MVC-MVC-%ED%8C%A8%ED%84%B4%EC%9D%B4-%EB%AD%90%EC%95%BC"
+          >
+            여기도 MVC, 저기도 MVC! MVC 패턴이 뭐야?
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://velog.io/@octo__/%EC%98%B5%EC%A0%80%EB%B2%84-%ED%8C%A8%ED%84%B4Observer-Pattern"
+          >
+            옵저버 패턴(Observer Pattern)
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://velog.io/@chancehee/%EB%94%94%EC%9E%90%EC%9D%B8-%ED%8C%A8%ED%84%B4-%EC%98%B5%EC%A0%80%EB%B2%84-%ED%8C%A8%ED%84%B4"
+          >
+            [디자인 패턴] - 옵저버 패턴
+          </a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>

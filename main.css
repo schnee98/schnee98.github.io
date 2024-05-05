@@ -41,7 +41,3 @@
 .text-line-through {
   text-decoration: line-through;
 }
-
-main > * {
-  opacity: 0;
-}
