@@ -45,12 +45,15 @@ jobs:
           static_site_generator: next
 
       - name: Build with Next.js
-        run: npx next build
+        run: npm run build
+
+      - name: Export Next.js to static HTML
+        run: npm run export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./next
+          path: ./out
 
   deploy:
     environment:
