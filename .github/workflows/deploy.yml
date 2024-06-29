@@ -48,12 +48,6 @@ jobs:
       - name: Build with Next.js
         run: npm run build
 
-      - name: List all directories in the root
-        run: ls -d */
-
-      - name: Create .nojekyll
-        run: touch out/.nojekyll
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
