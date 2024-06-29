@@ -1,8 +1,9 @@
 name: deploy-to-github-pages
+
 on:
   push:
     branches:
-      - [main, migration-nextjs]
+      - ["main", "migration-nextjs"]
 
 permissions:
   contents: read
