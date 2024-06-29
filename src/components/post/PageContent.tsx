@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { PrismLight } from "react-syntax-highlighter";
 import { materialOceanic } from "react-syntax-highlighter/dist/esm/styles/prism";
 import remarkGfm from "remark-gfm";
-import styles from "@/styles/post.module.css"
+import styles from "@/styles/post.module.css";
 
 const customStyle = {
   ...materialOceanic,
@@ -48,12 +48,12 @@ const PageContent = ({ content }: { content: string }) => {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ node, inline, className, children, ...props }) {
+          code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
-            return !inline && match ? (
-              <SyntaxHighlighter style={customStyle} language={match[1]} PreTag="div" {...props}>
+            return match ? (
+              <PrismLight style={customStyle} language={match[1]} PreTag="div">
                 {String(children).replace(/\n$/, "")}
-              </SyntaxHighlighter>
+              </PrismLight>
             ) : (
               <code className={className} {...props}>
                 {children}

@@ -2,13 +2,14 @@
 import dateUtils from "@/utils/dateUtils";
 import styles from "@/styles/post.module.css";
 import { Post } from "@/constants";
+import Image from "next/image";
 
-const Post = ({ slug, title, date, description, thumbnail }: Post) => {
+const PostDescription = ({ slug, title, date, description, thumbnail }: Post) => {
   const handlePostClick = () => (window.location.href = `/posts/${slug}`);
 
   return (
     <article key={slug} className={styles.post}>
-      <img src={thumbnail} alt={`${title} 썸네일 이미지`} className={styles.thumbnail} onClick={handlePostClick} />
+      <Image src={thumbnail} alt={`${title} 썸네일 이미지`} className={styles.thumbnail} onClick={handlePostClick} />
       <div>
         <h2 className={styles.postTitle} onClick={handlePostClick}>
           {title}
@@ -20,4 +21,4 @@ const Post = ({ slug, title, date, description, thumbnail }: Post) => {
   );
 };
 
-export default Post;
+export default PostDescription;
