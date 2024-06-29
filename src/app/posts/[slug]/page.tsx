@@ -1,11 +1,18 @@
 import styles from "@/styles/page.module.css";
 import Navigation from "../../../components/navigation/Navigation";
-import { getPost } from "@/utils/postUtils";
+import { getPost, getPosts } from "@/utils/postUtils";
 import { notFound } from "next/navigation";
 import PageContent from "@/components/post/PageContent";
 
 interface PostPageProps {
   params: { slug: string };
+}
+
+export async function generateStaticParams() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
 }
 
 const PostPage = async ({ params: { slug } }: PostPageProps) => {

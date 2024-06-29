@@ -49,12 +49,12 @@ jobs:
         run: npm run build
 
       - name: Create .nojekyll
-        run: echo "" > .next/.nojekyll
+        run: echo "" > out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .next
+          path: out
 
   deploy:
     environment:
