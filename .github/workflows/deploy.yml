@@ -52,7 +52,7 @@ jobs:
         run: ls -d */
 
       - name: Create .nojekyll
-        run: echo "" > ./out/.nojekyll
+        run: touch out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
