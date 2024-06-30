@@ -41,13 +41,7 @@ jobs:
         working-directory: ./
 
       - name: Build with Next.js
-        run: npx next build
-
-      - name: List all directories in the root
-        run: ls -la
-
-      - name: List directories in the out folder
-        run: ls -la ./out
+        run: npm run build
 
       - name: Create .nojekyll
         run: touch ./out/.nojekyll
