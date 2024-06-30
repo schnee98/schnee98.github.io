@@ -48,13 +48,19 @@ jobs:
       - name: Build with Next.js
         run: npm run build
 
+      - name: List all directories in the root
+        run: ls -la
+
+      - name: List directories in the out folder
+        run: ls -la ./out
+
       - name: Create .nojekyll
-        run: touch .next/.nojekyll
+        run: touch ./out/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .next
+          path: ./out
 
   deploy:
     environment:
