@@ -34,7 +34,8 @@ const PageContent = ({ content }: { content: string }) => {
     );
 
     if (markdownRef.current) {
-      const elements = markdownRef.current.querySelectorAll("*");
+      const allElements = markdownRef.current.querySelectorAll(":not(pre)");
+      const elements = [...allElements].filter((element) => !element.closest("pre"));
       elements.forEach((element) => observer.observe(element));
     }
 

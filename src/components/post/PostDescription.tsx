@@ -9,7 +9,14 @@ const PostDescription = ({ slug, title, date, description, thumbnail }: Post) =>
 
   return (
     <article key={slug} className={styles.post}>
-      <Image src={thumbnail} alt={`${title} 썸네일 이미지`} className={styles.thumbnail} onClick={handlePostClick} />
+      <Image
+        src={thumbnail}
+        width={350}
+        height={350}
+        alt={`${title} 썸네일 이미지`}
+        className={styles.thumbnail}
+        onClick={handlePostClick}
+      />
       <div>
         <h2 className={styles.postTitle} onClick={handlePostClick}>
           {title}
