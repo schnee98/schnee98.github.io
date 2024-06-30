@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "@/styles/potion.css";
+import "@/styles/globals.css";
+
+const potionStlyes = "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,6 +18,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="stylesheet" href={potionStlyes} />
+      </head>
       <body>{children}</body>
     </html>
   );

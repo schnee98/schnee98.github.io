@@ -1,6 +1,5 @@
 import styles from "@/styles/page.module.css";
 import Navigation from "@/components/navigation/Navigation";
-import "@/styles/potion.css";
 import PostDescription from "@/components/post/PostDescription";
 import { getPosts } from "@/utils/postUtils";
 
