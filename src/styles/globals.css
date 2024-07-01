@@ -1,3 +1,7 @@
+main h1, h2, h3 {
+  padding-top: 2rem;
+}
+
 main a {
   color: rgb(138, 138, 138);
 }
