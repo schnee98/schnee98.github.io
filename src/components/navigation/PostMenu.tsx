@@ -2,8 +2,10 @@
 
 import styles from "@/styles/post.module.css";
 import { useMemo, useState } from "react";
+import PostSidebar from "./PostSidebar";
+import { Post } from "@/constants";
 
-export default function PostMenu() {
+export default function PostMenu({ posts }: { posts: Post[] }) {
   const [isClicked, setIsClicked] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
 
@@ -39,6 +41,7 @@ export default function PostMenu() {
           points="2 5, 16 5"
         ></polyline>
       </svg>
+      {posts.length > 0 && isClicked && <PostSidebar posts={posts} />}
     </div>
   );
 }

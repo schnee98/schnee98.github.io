@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { Children, ReactNode, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import { PrismLight } from "react-syntax-highlighter";
 import { materialOceanic } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -12,6 +12,21 @@ const customStyle = {
     ...materialOceanic['pre[class*="language-"]'],
     width: "100%",
   },
+};
+
+const Header = ({
+  level,
+  children,
+}: {
+  level: number;
+  children: ReactNode;
+}) => {
+  const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+  const id = Children.toArray(children)
+    .join("")
+    .replace(/\s+/g, "-")
+    .toLowerCase();
+  return <Tag id={id}>{children}</Tag>;
 };
 
 const PageContent = ({ content }: { content: string }) => {
@@ -51,6 +66,21 @@ const PageContent = ({ content }: { content: string }) => {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
+          h1: ({ node, ...props }) => (
+            <Header level={1} {...props}>
+              {props.children}
+            </Header>
+          ),
+          h2: ({ node, ...props }) => (
+            <Header level={2} {...props}>
+              {props.children}
+            </Header>
+          ),
+          h3: ({ node, ...props }) => (
+            <Header level={3} {...props}>
+              {props.children}
+            </Header>
+          ),
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return match ? (
@@ -70,5 +100,4 @@ const PageContent = ({ content }: { content: string }) => {
     </article>
   );
 };
-
 export default PageContent;

@@ -1,11 +1,13 @@
 "use client";
 
 import styles from "@/styles/post.module.css";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import ContentSidebar from "./ContentSidebar";
 
 export default function ContentMenu() {
   const [isClicked, setIsClicked] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [headers, setHeaders] = useState<Element[]>([]);
 
   const className = useMemo(() => {
     if (isInitialLoad) {
@@ -18,6 +20,14 @@ export default function ContentMenu() {
     setIsClicked(!isClicked);
     setIsInitialLoad(false);
   };
+
+  useEffect(() => {
+    const main = document.querySelector("main > article");
+    if (main) {
+      const elementsWithId = main.querySelectorAll("[id]");
+      setHeaders([...elementsWithId]);
+    }
+  }, []);
 
   return (
     <div onClick={handleClick}>
@@ -37,6 +47,7 @@ export default function ContentMenu() {
           d="M12 12h.01M8 12h.01M16 12h.01"
         />
       </svg>
+      {headers.length > 0 && isClicked && <ContentSidebar headers={headers} />}
     </div>
   );
 }
