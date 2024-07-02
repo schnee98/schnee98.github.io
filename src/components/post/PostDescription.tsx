@@ -4,7 +4,13 @@ import styles from "@/styles/post.module.css";
 import { Post } from "@/constants";
 import Image from "next/image";
 
-const PostDescription = ({ slug, title, date, description, thumbnail }: Post) => {
+const PostDescription = ({
+  slug,
+  title,
+  date,
+  description,
+  thumbnail,
+}: Post) => {
   const handlePostClick = () => (window.location.href = `/posts/${slug}`);
 
   return (

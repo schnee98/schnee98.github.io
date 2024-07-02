@@ -10,9 +10,7 @@ interface PostPageProps {
 
 export async function generateStaticParams() {
   const posts = await getPosts();
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
+  return posts.map(({ slug }) => ({ slug }));
 }
 
 const PostPage = async ({ params: { slug } }: PostPageProps) => {

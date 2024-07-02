@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "@/styles/globals.css";
 
-const potionStlyes = "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
-
-const inter = Inter({ subsets: ["latin"] });
+const potionStlyes =
+  "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
 
 export const metadata: Metadata = {
   title: "schnee98 (박주은, Schnee) 블로그",

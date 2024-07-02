@@ -30,12 +30,14 @@ const PageContent = ({ content }: { content: string }) => {
           element.style.opacity = "0";
         });
       },
-      { root: null, rootMargin: "0px", threshold: 0.1 }
+      { root: null, rootMargin: "0px", threshold: 0.1 },
     );
 
     if (markdownRef.current) {
       const allElements = markdownRef.current.querySelectorAll(":not(pre)");
-      const elements = [...allElements].filter((element) => !element.closest("pre"));
+      const elements = [...allElements].filter(
+        (element) => !element.closest("pre"),
+      );
       elements.forEach((element) => observer.observe(element));
     }
 
