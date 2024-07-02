@@ -28,3 +28,9 @@
   width: 44rem;
   max-width: 100%;
 }
+
+.postBreak {
+  margin: 2rem 0;
+  padding: 0.5px;
+  background-color: rgb(206, 204, 204);
+}
