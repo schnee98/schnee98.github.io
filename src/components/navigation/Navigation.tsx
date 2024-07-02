@@ -3,8 +3,14 @@ import styles from "@/styles/navigation.module.css";
 import Image from "next/image";
 import ContentMenu from "./ContentMenu";
 import PostMenu from "./PostMenu";
+import { Post } from "@/constants";
 
-const Navigation = () => {
+interface NavigationProps {
+  type: "home" | "post";
+  posts: Post[];
+}
+
+const Navigation = ({ type, posts }: NavigationProps) => {
   const handleProfileClick = () => (window.location.href = "/");
 
   return (
@@ -20,8 +26,8 @@ const Navigation = () => {
           />
         </div>
         <div className={styles.navMenus}>
-          <ContentMenu />
-          <PostMenu />
+          {type === "post" && <ContentMenu />}
+          <PostMenu posts={posts} />
         </div>
       </div>
     </nav>

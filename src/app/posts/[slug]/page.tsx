@@ -14,6 +14,7 @@ export async function generateStaticParams() {
 }
 
 const PostPage = async ({ params: { slug } }: PostPageProps) => {
+  const posts = await getPosts();
   const post = await getPost(slug);
 
   if (!post) notFound();
@@ -22,7 +23,7 @@ const PostPage = async ({ params: { slug } }: PostPageProps) => {
 
   return (
     <>
-      <Navigation />
+      <Navigation type="post" posts={posts} />
       <header className={styles.header}>
         <div className={styles.background}></div>
         <h1>{title}</h1>

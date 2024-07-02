@@ -8,7 +8,7 @@ const Home = async () => {
   const posts = await getPosts();
   return (
     <>
-      <Navigation />
+      <Navigation type="home" posts={posts} />
       <header className={styles.header}>
         <div className={styles.background}></div>
         <h1>박주은, Schnee</h1>
