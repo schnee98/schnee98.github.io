@@ -18,3 +18,29 @@
 .contents * {
   transition: all 0.5s;
 }
+
+.rotateStartAnimation {
+  animation: rotateStart 0.5s ease-in-out forwards;
+}
+
+.rotateEndAnimation {
+  animation: rotateEnd 0.5s ease-in-out forwards;
+}
+
+@keyframes rotateStart {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(450deg);
+  }
+}
+
+@keyframes rotateEnd {
+  from {
+    transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}

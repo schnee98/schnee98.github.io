@@ -1,18 +1,28 @@
 "use client";
+
 import styles from "@/styles/post.module.css";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function ContentMenu() {
   const [isClicked, setIsClicked] = useState(false);
-  const menuProps = {
-    className: isClicked ? styles.fadeInAnimation : undefined,
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+
+  const className = useMemo(() => {
+    if (isInitialLoad) {
+      return undefined;
+    }
+    return isClicked ? styles.rotateStartAnimation : styles.rotateEndAnimation;
+  }, [isClicked, isInitialLoad]);
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    setIsInitialLoad(false);
   };
 
-  const handleClick = () => setIsClicked(!isClicked);
-
   return (
-    <div {...menuProps} onClick={handleClick}>
+    <div onClick={handleClick}>
       <svg
+        className={className}
         width="36"
         height="36"
         viewBox="0 0 24 24"
