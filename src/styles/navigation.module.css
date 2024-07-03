@@ -79,6 +79,12 @@
   border: none;
   border-radius: 0.5rem;
   background-color: transparent;
+  transition: all 0.5s;
+}
+
+.sidebarCloseButton:hover {
+  background-color: rgba(140, 149, 159, 0.2);
+  cursor: pointer;
 }
 
 .sidebarCloseButton:hover {
