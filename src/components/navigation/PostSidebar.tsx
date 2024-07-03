@@ -21,7 +21,9 @@ export default function PostSidebar({ posts, handleClick }: PostSidebarProps) {
         </div>
         {posts.map(({ title, slug }, index) => (
           <div key={`post-items-${index}`} className={styles.sidebarItem}>
-            <a href={`/posts/${slug}`}>{title}</a>
+            <a href={`/posts/${slug}`} onClick={handleClick}>
+              {title}
+            </a>
           </div>
         ))}
       </div>

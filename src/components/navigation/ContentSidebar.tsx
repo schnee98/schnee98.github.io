@@ -17,7 +17,9 @@ export default function ContentSidebar({ headers, handleClick }: ContentSidebarP
         <hr className={styles.sidebarBreak} />
         {headers.map(({ id, textContent }, index) => (
           <div key={`content-items-${index}`} className={styles.sidebarItem}>
-            <a href={`#${id}`}>{textContent}</a>
+            <a href={`#${id}`} onClick={handleClick}>
+              {textContent}
+            </a>
           </div>
         ))}
       </div>
