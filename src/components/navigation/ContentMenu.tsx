@@ -30,9 +30,10 @@ export default function ContentMenu() {
   }, []);
 
   return (
-    <div onClick={handleClick}>
+    <div>
       <svg
         className={className}
+        onClick={handleClick}
         width="36"
         height="36"
         viewBox="0 0 24 24"
@@ -47,7 +48,9 @@ export default function ContentMenu() {
           d="M12 12h.01M8 12h.01M16 12h.01"
         />
       </svg>
-      {headers.length > 0 && isClicked && <ContentSidebar headers={headers} />}
+      {headers.length > 0 && isClicked && (
+        <ContentSidebar headers={headers} handleClick={handleClick} />
+      )}
     </div>
   );
 }

@@ -22,8 +22,8 @@ export default function PostMenu({ posts }: { posts: Post[] }) {
   };
 
   return (
-    <div onClick={handleClick}>
-      <svg className={className} width="24" height="24" viewBox="0 0 18 18">
+    <div>
+      <svg className={className} width="24" height="24" viewBox="0 0 18 18" onClick={handleClick}>
         <polyline
           fill="none"
           stroke="#000"
@@ -41,7 +41,7 @@ export default function PostMenu({ posts }: { posts: Post[] }) {
           points="2 5, 16 5"
         ></polyline>
       </svg>
-      {posts.length > 0 && isClicked && <PostSidebar posts={posts} />}
+      {posts.length > 0 && isClicked && <PostSidebar posts={posts} handleClick={handleClick} />}
     </div>
   );
 }

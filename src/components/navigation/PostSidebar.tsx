@@ -1,12 +1,19 @@
 import { Post } from "@/constants";
 import styles from "@/styles/navigation.module.css";
 
-export default function PostSidebar({ posts }: { posts: Post[] }) {
+interface PostSidebarProps {
+  posts: Post[];
+  handleClick: () => void;
+}
+
+export default function PostSidebar({ posts, handleClick }: PostSidebarProps) {
   return (
     <>
-      <div className={styles.sidebarBlur}></div>
+      <div className={styles.sidebarBlur} onClick={handleClick}></div>
       <div className={styles.sidebar}>
-        <button className={styles.sidebarCloseButton}>X</button>
+        <button className={styles.sidebarCloseButton} onClick={handleClick}>
+          X
+        </button>
         <h3 className={styles.sidebarTitle}>블로그 포스트 목록</h3>
         <hr className={styles.sidebarBreak} />
         <div className={styles.sidebarItem}>
@@ -14,7 +21,9 @@ export default function PostSidebar({ posts }: { posts: Post[] }) {
         </div>
         {posts.map(({ title, slug }, index) => (
           <div key={`post-items-${index}`} className={styles.sidebarItem}>
-            <a href={`/posts/${slug}`}>{title}</a>
+            <a href={`/posts/${slug}`} onClick={handleClick}>
+              {title}
+            </a>
           </div>
         ))}
       </div>
