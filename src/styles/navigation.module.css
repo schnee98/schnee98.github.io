@@ -74,8 +74,16 @@
 }
 
 .sidebarCloseButton {
+  width: 2rem;
+  height: 2rem;
   border: none;
+  border-radius: 0.5rem;
   background-color: transparent;
+}
+
+.sidebarCloseButton:hover {
+  background-color: rgba(140, 149, 159, 0.2);
+  cursor: pointer;
 }
 
 .sidebarTitle {
