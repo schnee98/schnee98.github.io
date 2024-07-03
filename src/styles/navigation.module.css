@@ -108,6 +108,7 @@
   height: 100vh;
   background-color: rgba(140, 149, 159, 0.2);
   cursor: default;
+  z-index: 9;
 }
 
 @keyframes fadeLeftIn {
