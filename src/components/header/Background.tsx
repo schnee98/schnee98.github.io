@@ -36,7 +36,7 @@ const Background = () => {
     <div ref={textRef} className={styles.animatedText}>
       <div className={styles.background}></div>
       <h1 className={`swift-up-text ${styles.swiftUpH1}`}>Welcome To </h1>
-      <h1 className={`swift-up-text ${styles.swiftUpH1}`}>Schnee's Blog</h1>
+      <h1 className={`swift-up-text ${styles.swiftUpH1}`}>Schnee&rsquo;s Blog</h1>
     </div>
   );
 };
