@@ -17,8 +17,8 @@ const Home = async () => {
         <Background />
       </header>
       <main className={styles.main}>
-        <h1>박주은, Schnee</h1>
-        <h2 className={styles.description}>주니어 프론트엔드 개발자</h2>
+        <h1>Junior Frontend Developer</h1>
+        <br />
         <div>
           📧 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
         </div>
