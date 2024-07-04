@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
+import styles from "@/styles/page.module.css";
 
 const potionStlyes =
   "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
@@ -19,7 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href={potionStlyes} />
       </head>
-      <body>{children}</body>
+      <body className={styles.body}>{children}</body>
     </html>
   );
 }

@@ -3,6 +3,7 @@ import Navigation from "../../../components/navigation/Navigation";
 import { getPost, getPosts } from "@/utils/postUtils";
 import { notFound } from "next/navigation";
 import PageContent from "@/components/post/PageContent";
+import Background from "@/components/header/Background";
 
 interface PostPageProps {
   params: { slug: string };
@@ -25,10 +26,10 @@ const PostPage = async ({ params: { slug } }: PostPageProps) => {
     <>
       <Navigation type="post" posts={posts} />
       <header className={styles.header}>
-        <div className={styles.background}></div>
-        <h1>{title}</h1>
+        <Background />
       </header>
       <main className={styles.main}>
+        <h1>{title}</h1>
         <PageContent content={content} />
       </main>
     </>
