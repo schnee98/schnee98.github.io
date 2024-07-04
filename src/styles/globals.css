@@ -1,3 +1,7 @@
+body *::selection {
+  background: rgb(206, 204, 204);
+}
+
 main h1,
 h2,
 h3 {
