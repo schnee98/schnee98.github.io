@@ -29,6 +29,10 @@
   max-width: 100%;
 }
 
+.main table {
+  width: inherit;
+}
+
 .postBreak {
   width: 100%;
   margin: 2rem 0;
