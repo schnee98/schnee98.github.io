@@ -16,3 +16,7 @@ main img {
   max-height: 25rem;
   object-fit: contain;
 }
+
+main blockquote {
+  font-size: 1rem;
+}
