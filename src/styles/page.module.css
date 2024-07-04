@@ -78,3 +78,13 @@
     top: 0;
   }
 }
+
+@media (max-width: 380px) {
+  .swiftUpH1 {
+    margin: 0;
+    padding: 0;
+    letter-spacing: -1px;
+    font-size: 3rem;
+    color: rgb(255, 242, 216);
+  }
+}
