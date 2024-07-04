@@ -81,6 +81,21 @@ const PageContent = ({ content }: { content: string }) => {
               {props.children}
             </Header>
           ),
+          h4: ({ node, ...props }) => (
+            <Header level={4} {...props}>
+              {props.children}
+            </Header>
+          ),
+          h5: ({ node, ...props }) => (
+            <Header level={5} {...props}>
+              {props.children}
+            </Header>
+          ),
+          h6: ({ node, ...props }) => (
+            <Header level={6} {...props}>
+              {props.children}
+            </Header>
+          ),
           code({ node, className, children, ...props }) {
             const match = /language-(\w+)/.exec(className || "");
             return match ? (

@@ -66,10 +66,11 @@
 }
 
 .sidebarItem {
-  width: 100%;
-  padding: 0 1rem;
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
   cursor: pointer;
 }
 
@@ -95,6 +96,9 @@
 .sidebarTitle {
   padding: 0 1rem;
   width: 100%;
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.3;
 }
 
 .sidebarBreak {
@@ -109,6 +113,7 @@
   height: 100vh;
   background-color: rgba(140, 149, 159, 0.2);
   cursor: default;
+  z-index: 9;
 }
 
 @keyframes fadeLeftIn {
