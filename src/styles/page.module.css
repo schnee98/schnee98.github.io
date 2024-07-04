@@ -30,7 +30,8 @@
 }
 
 .main table {
-  table-layout: auto;
+  width: inherit;
+  table-layout: revert;
 }
 
 .postBreak {
