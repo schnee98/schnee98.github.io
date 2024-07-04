@@ -27,12 +27,10 @@
 .main * {
   width: 44rem;
   max-width: 100%;
-  overflow-x: auto;
 }
 
 .main table {
-  width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .postBreak {
