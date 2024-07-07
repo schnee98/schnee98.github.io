@@ -14,9 +14,9 @@
   top: 0;
   left: 0;
   z-index: -1;
-  background-image: linear-gradient(0deg, #333, #555);
+  background-image: linear-gradient(0deg, #fff2d8, #333);
   background-size: 100% 400%;
-  animation: bg-pan-top 1.5s infinite alternate both;
+  animation: bg-pan-top 4s infinite alternate both;
 }
 
 .description {
@@ -65,14 +65,18 @@
 .swiftUpSpan {
   display: inline-block;
   overflow: hidden;
-  animation: 0.3s swift-up ease-in-out forwards;
 }
 
 .swiftUpIcon {
   font-style: normal;
   position: relative;
   top: 4rem;
-  animation: 0.5s swift-up ease-in-out forwards;
+  background: linear-gradient(0deg, #fff2d8, #333);
+  background-size: 100% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: 0.5s swift-up ease-in-out forwards, bg-pan-bottom 4s infinite 0s alternate both;
 }
 
 @keyframes swift-up {
@@ -90,12 +94,21 @@
   }
 }
 
+@keyframes bg-pan-bottom {
+  0% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
 @media (max-width: 380px) {
   .swiftUpH1 {
     margin: 0;
     padding: 0;
     letter-spacing: -1px;
     font-size: 3rem;
-    color: rgb(255, 242, 216);
+    color: #fff2d8;
   }
 }
