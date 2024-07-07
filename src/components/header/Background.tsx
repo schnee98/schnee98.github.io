@@ -3,7 +3,7 @@
 import { RefObject, useEffect, useRef } from "react";
 import styles from "@/styles/page.module.css";
 
-const ANIMATION_DURATION = 7000;
+const ANIMATION_DURATION = 8000;
 
 const renderWord = (content: string) =>
   `<span class=${styles.swiftUpSpan}><i class=${styles.swiftUpIcon}>${content}</i></span>`;
