@@ -10,11 +10,13 @@
 .background {
   width: 100%;
   height: 16rem;
-  background-color: rgb(51, 51, 51);
   position: absolute;
   top: 0;
   left: 0;
   z-index: -1;
+  background-image: linear-gradient(0deg, #333, #555);
+  background-size: 100% 400%;
+  animation: bg-pan-top 1.5s infinite alternate both;
 }
 
 .description {
@@ -76,6 +78,15 @@
 @keyframes swift-up {
   to {
     top: 0;
+  }
+}
+
+@keyframes bg-pan-top {
+  0% {
+    background-position: 50% 100%;
+  }
+  100% {
+    background-position: 50% 0%;
   }
 }
 
