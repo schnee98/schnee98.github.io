@@ -1,16 +1,16 @@
-import fs from "fs";
+import { promises as fs } from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { Post } from "@/constants";
 
 export const getPosts = async () => {
   const postsDirectory = path.join(process.cwd(), "src/posts");
-  const filenames = fs.readdirSync(postsDirectory);
+  const filenames = await fs.readdir(postsDirectory);
 
-  const posts = filenames
-    .map((filename) => {
+  const posts = await Promise.all(
+    filenames.map(async (filename) => {
       const filePath = path.join(postsDirectory, filename);
-      const fileContents = fs.readFileSync(filePath, "utf8");
+      const fileContents = await fs.readFile(filePath, "utf8");
       const { data, content } = matter(fileContents);
 
       return {
@@ -19,9 +19,9 @@ export const getPosts = async () => {
         ...data,
       } as Post;
     })
-    .reverse();
+  );
 
-  return posts;
+  return posts.reverse();
 };
 
 export async function generateStaticParams() {
