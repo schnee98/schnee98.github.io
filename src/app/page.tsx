@@ -6,7 +6,7 @@ import HorizontalRule from "@/components/post/HorizontalRule";
 import Background from "@/components/header/Background";
 
 const EMAIL = "jooeun06161@gmail.com";
-const GITHUB_URL = "github.com/schnee98";
+const GITHUB_URL = "https://github.com/schnee98";
 
 const Home = async () => {
   const posts = await getPosts();
