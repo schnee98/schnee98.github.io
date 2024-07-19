@@ -23,7 +23,7 @@ const Home = async () => {
           📧 <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
         </div>
         <div>
-          😺 <a href={GITHUB_URL}>{GITHUB_URL}</a>
+          😺 <a href={GITHUB_URL}>{GITHUB_URL.replace("https://", "")}</a>
         </div>
         <HorizontalRule />
         {posts.map((post, index) => (
