@@ -41,6 +41,8 @@ jobs:
         working-directory: ./
 
       - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID }}
         run: npm run build
 
       - name: Create .nojekyll

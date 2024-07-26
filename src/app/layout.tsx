@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import styles from "@/styles/page.module.css";
+import { Analytics } from "./analytics";
 
-const potionStlyes =
-  "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
+const potionStlyes = "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
 
 export const metadata: Metadata = {
   title: "schnee98 (박주은, Schnee) 블로그",
@@ -19,6 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="stylesheet" href={potionStlyes} />
+        <Analytics />
       </head>
       <body className={styles.body}>{children}</body>
     </html>
