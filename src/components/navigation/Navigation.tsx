@@ -4,6 +4,7 @@ import Image from "next/image";
 import ContentMenu from "./ContentMenu";
 import PostMenu from "./PostMenu";
 import { Post } from "@/constants";
+import ResumeMenu from "./ResumeMenu";
 
 interface NavigationProps {
   type: "home" | "post";
@@ -26,8 +27,9 @@ const Navigation = ({ type, posts }: NavigationProps) => {
           />
         </div>
         <div className={styles.navMenus}>
-          {type === "post" && <ContentMenu />}
+          <ResumeMenu />
           <PostMenu posts={posts} />
+          {type === "post" && <ContentMenu />}
         </div>
       </div>
     </nav>

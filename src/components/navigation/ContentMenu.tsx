@@ -3,6 +3,7 @@
 import styles from "@/styles/post.module.css";
 import { useEffect, useMemo, useState } from "react";
 import ContentSidebar from "./ContentSidebar";
+import IconPointTriple from "@/assets/icon-point-triple.svg?react";
 
 export default function ContentMenu() {
   const [isClicked, setIsClicked] = useState(false);
@@ -31,23 +32,12 @@ export default function ContentMenu() {
 
   return (
     <div>
-      <svg
+      <IconPointTriple
+        width={36}
+        height={36}
         className={className}
         onClick={handleClick}
-        width="36"
-        height="36"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-      >
-        <path
-          stroke="#000000"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="2"
-          d="M12 12h.01M8 12h.01M16 12h.01"
-        />
-      </svg>
+      />
       {headers.length > 0 && isClicked && (
         <ContentSidebar headers={headers} handleClick={handleClick} />
       )}
