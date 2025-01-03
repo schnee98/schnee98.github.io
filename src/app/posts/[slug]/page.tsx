@@ -14,7 +14,8 @@ export async function generateStaticParams() {
   return posts.map(({ slug }) => ({ slug }));
 }
 
-const PostPage = async ({ params: { slug } }: PostPageProps) => {
+const PostPage = async ({ params }: PostPageProps) => {
+  const { slug } = await params;
   const posts = await getPosts();
   const post = await getPost(slug);
 
