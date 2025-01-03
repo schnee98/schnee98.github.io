@@ -2,6 +2,7 @@ import Navigation from "@/components/navigation/Navigation";
 import { getPosts } from "@/utils/postUtils";
 import styles from "@/styles/page.module.css";
 import { ResumeHeader } from "@/components/resume/ResumeHeader";
+import { Introduce } from "@/components/resume/Introduce";
 
 export async function generateStaticParams() {
   const posts = await getPosts();
@@ -17,6 +18,7 @@ const Resume = async () => {
       <main className={styles.main}>
         <ResumeHeader />
         <hr />
+        <Introduce />
       </main>
     </>
   );

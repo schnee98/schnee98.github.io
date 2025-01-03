@@ -1,0 +1,9 @@
+.quote {
+  border-left: 4px solid black;
+  padding: 0 16px;
+}
+
+.quote span {
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-blue);
+}
