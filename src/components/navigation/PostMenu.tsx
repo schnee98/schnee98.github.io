@@ -3,7 +3,7 @@
 import styles from "@/styles/post.module.css";
 import { useMemo, useState } from "react";
 import PostSidebar from "./PostSidebar";
-import { Post } from "@/constants";
+import { Post } from "@/types/types";
 import IconHorizontal from "@/assets/icon-horizontal.svg?react";
 
 export default function PostMenu({ posts }: { posts: Post[] }) {

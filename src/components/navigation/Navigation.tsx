@@ -3,8 +3,8 @@ import styles from "@/styles/navigation.module.css";
 import Image from "next/image";
 import ContentMenu from "./ContentMenu";
 import PostMenu from "./PostMenu";
-import { Post } from "@/constants";
 import ResumeMenu from "./ResumeMenu";
+import { Post } from "@/types/types";
 
 interface NavigationProps {
   type: "home" | "post";

@@ -1,7 +1,7 @@
 import { promises as fs } from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { Post } from "@/constants";
+import { Post } from "@/types/types";
 
 export const getPosts = async () => {
   const postsDirectory = path.join(process.cwd(), "src/posts");

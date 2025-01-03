@@ -31,7 +31,7 @@ export default function ContentMenu() {
   }, []);
 
   return (
-    <div>
+    <>
       <IconPointTriple
         width={36}
         height={36}
@@ -41,6 +41,6 @@ export default function ContentMenu() {
       {headers.length > 0 && isClicked && (
         <ContentSidebar headers={headers} handleClick={handleClick} />
       )}
-    </div>
+    </>
   );
 }

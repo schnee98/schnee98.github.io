@@ -26,8 +26,8 @@ const Home = async () => {
           😺 <a href={GITHUB_URL}>{GITHUB_URL.replace("https://", "")}</a>
         </div>
         <HorizontalRule />
-        {posts.map((post, index) => (
-          <div key={`blog-post-${index}`}>
+        {posts.map((post) => (
+          <div key={`blog-post-${post.title}`}>
             <PostDescription {...post} />
             <HorizontalRule />
           </div>
