@@ -1,11 +1,11 @@
-body *::selection {
-  background: rgb(206, 204, 204);
+:root {
+  --font-weight-regular: 500;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 700;
 }
 
-main h1,
-h2,
-h3 {
-  padding-top: 2rem;
+body *::selection {
+  background: rgb(206, 204, 204);
 }
 
 main a {

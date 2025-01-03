@@ -45,6 +45,10 @@
   cursor: pointer;
 }
 
+.resume {
+  background: none;
+}
+
 .sidebar {
   position: absolute;
   display: flex;
