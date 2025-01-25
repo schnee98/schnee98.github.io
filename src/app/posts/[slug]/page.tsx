@@ -1,5 +1,5 @@
 import styles from "@/styles/page.module.css";
-import Navigation from "../../../components/navigation/Navigation";
+import Navigation from "../../../components/navigation/Navigation/Navigation";
 import { getPost, getPosts } from "@/utils/postUtils";
 import { notFound } from "next/navigation";
 import PageContent from "@/components/post/PageContent";

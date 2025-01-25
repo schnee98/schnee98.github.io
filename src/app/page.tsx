@@ -1,5 +1,5 @@
 import styles from "@/styles/page.module.css";
-import Navigation from "@/components/navigation/Navigation";
+import Navigation from "@/components/navigation/Navigation/Navigation";
 import PostDescription from "@/components/post/PostDescription";
 import { getPosts } from "@/utils/postUtils";
 import HorizontalRule from "@/components/post/HorizontalRule";

@@ -11,7 +11,7 @@
   z-index: 100;
 }
 
-.navItems {
+.items {
   display: flex;
   max-width: 44rem;
   width: 100%;
@@ -27,13 +27,13 @@
   cursor: pointer;
 }
 
-.profileIcon {
+.icon {
   width: 100%;
   padding: 0;
   margin: 0;
 }
 
-.navMenus {
+.menus {
   display: flex;
   gap: 1rem;
   list-style: none;
@@ -41,15 +41,6 @@
   align-items: center;
 }
 
-.navMenus > * {
+.menus > * {
   cursor: pointer;
-}
-
-@keyframes fadeLeftIn {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0%);
-  }
 }

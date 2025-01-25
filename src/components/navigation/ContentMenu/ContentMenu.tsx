@@ -1,41 +1,29 @@
 "use client";
 
-import styles from "@/styles/post.module.css";
-import { useEffect, useMemo, useState } from "react";
-import ContentSidebar from "../ContentSidebar";
+import ContentSidebar from "../ContentSidebar/ContentSidebar";
 import ContentIcon from "@/assets/content-icon.svg";
+import { useRotation } from "@/hooks/useRotation";
 
-export default function ContentMenu() {
-  const [isClicked, setIsClicked] = useState(false);
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [headers, setHeaders] = useState<Element[]>([]);
-
-  const className = useMemo(() => {
-    if (isInitialLoad) {
-      return undefined;
-    }
-    return isClicked ? styles.rotateStartAnimation : styles.rotateEndAnimation;
-  }, [isClicked, isInitialLoad]);
-
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-    setIsInitialLoad(false);
-  };
-
-  useEffect(() => {
-    const main = document.querySelector("main > article");
-    if (main) {
-      const elementsWithId = main.querySelectorAll("[id]");
-      setHeaders([...elementsWithId]);
-    }
-  }, []);
+function ContentMenu() {
+  const { clicked, onClick, className } = useRotation();
+  const headers = getHeaders();
 
   return (
     <div>
-      <ContentIcon className={className} onClick={handleClick} />
-      {headers.length > 0 && isClicked && (
-        <ContentSidebar headers={headers} handleClick={handleClick} />
+      <ContentIcon className={className} onClick={onClick} />
+      {headers.length > 0 && clicked && (
+        <ContentSidebar headers={headers} handleClick={onClick} />
       )}
     </div>
   );
 }
+
+function getHeaders() {
+  const headers = Array.from(
+    document.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]")
+  );
+
+  return headers;
+}
+
+export default ContentMenu;
