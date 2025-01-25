@@ -4,6 +4,7 @@ import styles from "@/styles/post.module.css";
 import { useMemo, useState } from "react";
 import PostSidebar from "./PostSidebar";
 import { Post } from "@/constants";
+import PostIcon from "@/assets/post-icon.svg";
 
 export default function PostMenu({ posts }: { posts: Post[] }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -23,25 +24,10 @@ export default function PostMenu({ posts }: { posts: Post[] }) {
 
   return (
     <div>
-      <svg className={className} width="24" height="24" viewBox="0 0 18 18" onClick={handleClick}>
-        <polyline
-          fill="none"
-          stroke="#000"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          points="2 12, 16 12"
-        ></polyline>
-        <polyline
-          fill="none"
-          stroke="#000"
-          strokeWidth="1.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          points="2 5, 16 5"
-        ></polyline>
-      </svg>
-      {posts.length > 0 && isClicked && <PostSidebar posts={posts} handleClick={handleClick} />}
+      <PostIcon className={className} onClick={handleClick} />
+      {posts.length > 0 && isClicked && (
+        <PostSidebar posts={posts} handleClick={handleClick} />
+      )}
     </div>
   );
 }

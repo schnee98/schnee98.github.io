@@ -24,11 +24,6 @@ export const getPosts = async () => {
   return posts.reverse();
 };
 
-export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map(({ slug }) => ({ slug }));
-}
-
 export async function getPost(slug: string): Promise<Post | undefined> {
   const posts = await getPosts();
   return posts.find(({ slug: postSlug }) => postSlug === slug);

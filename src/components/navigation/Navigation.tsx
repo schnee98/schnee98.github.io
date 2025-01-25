@@ -1,7 +1,7 @@
 "use client";
 import styles from "@/styles/navigation.module.css";
 import Image from "next/image";
-import ContentMenu from "./ContentMenu";
+import ContentMenu from "./ContentMenu/ContentMenu";
 import PostMenu from "./PostMenu";
 import { Post } from "@/constants";
 
