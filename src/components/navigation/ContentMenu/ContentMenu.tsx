@@ -19,7 +19,7 @@ function ContentMenu() {
 }
 
 function getHeaders() {
-  if (document == null) {
+  if (typeof document === "undefined") {
     return [];
   }
 
