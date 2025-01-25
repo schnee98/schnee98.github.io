@@ -1,0 +1,47 @@
+.up-span {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.up-icon {
+  font-style: normal;
+  position: relative;
+  top: 4rem;
+  background: linear-gradient(0deg, #fff2d8, #333);
+  background-size: 100% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: 9s swift-up ease-in-out forwards,
+    bg-pan-bottom 5s infinite 0s alternate both;
+}
+@keyframes swift-up {
+  5% {
+    top: 0;
+  }
+  95% {
+    top: 0;
+  }
+  100% {
+    top: -5rem;
+  }
+}
+
+@keyframes bg-pan-bottom {
+  0% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .swiftUpH1 {
+    margin: 0;
+    padding: 0;
+    letter-spacing: -1px;
+    font-size: 3rem;
+    color: #fff2d8;
+  }
+}

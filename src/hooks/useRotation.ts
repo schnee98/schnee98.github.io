@@ -10,7 +10,7 @@ export function useRotation() {
     if (initialLoaded) {
       return undefined;
     }
-    return clicked ? styles.rotateStartAnimation : styles.rotateEndAnimation;
+    return clicked ? styles["rotate-start"] : styles["rotate-end"];
   }, [clicked, initialLoaded]);
 
   const onClick = () => {

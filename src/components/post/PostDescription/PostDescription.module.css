@@ -8,6 +8,7 @@
 
 .post * {
   opacity: 1;
+  background: none;
 }
 
 .post:hover {

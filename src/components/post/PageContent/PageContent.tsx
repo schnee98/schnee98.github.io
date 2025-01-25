@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import styles from "@/styles/post.module.css";
+import styles from "./PageContent.module.css";
 import { markdownComponents } from "./markdownComponents";
 import { useFadeInContents } from "@/hooks/useFadeInContents";
 

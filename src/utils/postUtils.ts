@@ -24,7 +24,6 @@ export const getPosts = async () => {
   return posts.reverse();
 };
 
-export async function getPost(slug: string): Promise<Post | undefined> {
-  const posts = await getPosts();
-  return posts.find(({ slug: postSlug }) => postSlug === slug);
+export function getPost(posts: Post[], _slug: string) {
+  return posts.find(({ slug }) => slug === _slug);
 }

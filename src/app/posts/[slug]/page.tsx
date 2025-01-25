@@ -3,7 +3,7 @@ import Navigation from "../../../components/navigation/Navigation/Navigation";
 import { getPost, getPosts } from "@/utils/postUtils";
 import { notFound } from "next/navigation";
 import PageContent from "@/components/post/PageContent/PageContent";
-import Background from "@/components/header/Background";
+import Background from "@/components/header/Background/Background";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 const PostPage = async ({ params }: PostPageProps) => {
   const { slug } = await params;
   const posts = await getPosts();
-  const post = await getPost(slug);
+  const post = getPost(posts, slug);
 
   if (!post) notFound();
 
@@ -25,14 +25,8 @@ const PostPage = async ({ params }: PostPageProps) => {
 
   return (
     <>
-      <Navigation type="post" posts={posts} />
-      <header className={styles.header}>
-        <Background />
-      </header>
-      <main className={styles.main}>
-        <h1>{title}</h1>
-        <PageContent content={content} />
-      </main>
+      <h1>{title}</h1>
+      <PageContent content={content} />
     </>
   );
 };

@@ -1,29 +1,8 @@
-.post {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.thumbnail {
-  max-width: 100%;
-  max-height: 20rem;
-  object-fit: contain;
-  cursor: pointer;
-}
-
-.postTitle {
-  cursor: pointer;
-}
-
-.contents * {
-  transition: all 0.5s;
-}
-
-.rotateStartAnimation {
+.rotate-start {
   animation: rotateStart 0.5s ease-in-out forwards;
 }
 
-.rotateEndAnimation {
+.rotate-end {
   animation: rotateEnd 0.5s ease-in-out forwards;
 }
 
