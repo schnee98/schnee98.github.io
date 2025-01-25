@@ -1,8 +1,8 @@
 import styles from "@/styles/page.module.css";
 import Navigation from "@/components/navigation/Navigation/Navigation";
-import PostDescription from "@/components/post/PostDescription";
+import PostDescription from "@/components/post/PostDescription/PostDescription";
 import { getPosts } from "@/utils/postUtils";
-import HorizontalRule from "@/components/post/HorizontalRule";
+import HorizontalRule from "@/components/post/HorizontalRule/HorizontalRule";
 import Background from "@/components/header/Background";
 
 const EMAIL = "jooeun06161@gmail.com";
