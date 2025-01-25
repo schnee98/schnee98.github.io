@@ -3,6 +3,10 @@ import { RefObject } from "react";
 
 export function useFadeInContents(ref: RefObject<HTMLElement>) {
   useEffect(() => {
+    if (ref.current == null || ref.current.children == null) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -17,10 +21,9 @@ export function useFadeInContents(ref: RefObject<HTMLElement>) {
       },
       { threshold: 0.1 }
     );
-    const contents = Array.from(ref.current?.children ?? []);
+    const contents = Array.from(ref.current.children);
 
     contents.forEach((content) => observer.observe(content));
-
     return () => {
       observer.disconnect();
     };
