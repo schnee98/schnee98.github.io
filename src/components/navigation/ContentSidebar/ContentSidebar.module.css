@@ -1,0 +1,73 @@
+.blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(140, 149, 159, 0.2);
+  cursor: default;
+  z-index: 9;
+}
+
+.sidebar {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+  width: 19rem;
+  height: 100vh;
+  background-color: rgb(245, 245, 245);
+  right: 0;
+  top: 0;
+  padding: 2rem;
+  border-radius: 12px 0 0 12px;
+  box-shadow: 0 4px 1rem rgba(0, 0, 0, 0.4);
+  cursor: default;
+  animation: fadeLeftIn 0.3s ease-in-out forwards;
+  z-index: 10;
+}
+
+.button {
+  width: 2rem;
+  height: 2rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  transition: all 0.5s;
+}
+
+.button:hover {
+  background-color: rgba(140, 149, 159, 0.2);
+  cursor: pointer;
+}
+
+.title {
+  padding: 0 1rem;
+  width: 100%;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.3;
+}
+
+.break {
+  width: 100%;
+}
+
+.item {
+  width: calc(100% - 2rem);
+  margin: 0 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@keyframes fadeLeftIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0%);
+  }
+}

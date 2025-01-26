@@ -1,8 +1,8 @@
 "use client";
-import styles from "@/styles/navigation.module.css";
+import styles from "./Navigation.module.css";
 import Image from "next/image";
-import ContentMenu from "./ContentMenu";
-import PostMenu from "./PostMenu";
+import ContentMenu from "../ContentMenu/ContentMenu";
+import PostMenu from "../PostMenu/PostMenu";
 import { Post } from "@/constants";
 
 interface NavigationProps {
@@ -15,17 +15,17 @@ const Navigation = ({ type, posts }: NavigationProps) => {
 
   return (
     <nav className={styles.navigation}>
-      <div className={styles.navItems}>
+      <div className={styles.items}>
         <div className={styles.profile} onClick={handleProfileClick}>
           <Image
-            className={styles.profileIcon}
+            className={styles.icon}
             src="/img/profile_picture.png"
             alt="profile_picture"
             width={48}
             height={48}
           />
         </div>
-        <div className={styles.navMenus}>
+        <div className={styles.menus}>
           {type === "post" && <ContentMenu />}
           <PostMenu posts={posts} />
         </div>
