@@ -26,7 +26,7 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ slug: string | undefined }>;
 }>) {
-  const slug = await params;
+  const { slug } = await params;
   const posts = await getPosts();
 
   return (
