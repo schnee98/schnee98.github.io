@@ -1,7 +1,9 @@
 import { getPost, getPosts } from "@/utils/postUtils";
 import { notFound } from "next/navigation";
 import PageContent from "@/components/post/PageContent/PageContent";
-import RootLayout from "@/app/layout";
+import Navigation from "@/components/navigation/Navigation/Navigation";
+import layoutStyles from "@/app/layout.module.css";
+import Background from "@/components/header/Background/Background";
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -22,10 +24,16 @@ const PostPage = async ({ params }: PostPageProps) => {
   const { title, content } = post;
 
   return (
-    <RootLayout params={params}>
-      <h1>{title}</h1>
-      <PageContent content={content} />
-    </RootLayout>
+    <>
+      <Navigation type="post" posts={posts} />
+      <header className={layoutStyles.header}>
+        <Background />
+      </header>
+      <main className={layoutStyles.main}>
+        <h1>{title}</h1>
+        <PageContent content={content} />
+      </main>
+    </>
   );
 };
 

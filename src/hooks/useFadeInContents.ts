@@ -11,7 +11,6 @@ export function useFadeInContents(ref: RefObject<HTMLElement>) {
       (entries) => {
         entries.forEach((entry) => {
           const element = entry.target as HTMLElement;
-          console.log(element);
           if (entry.isIntersecting) {
             element.style.opacity = "1";
           } else {

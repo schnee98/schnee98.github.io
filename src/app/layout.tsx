@@ -35,13 +35,7 @@ export default async function RootLayout({
         <link rel="stylesheet" href={potionStyles} />
         <Analytics />
       </head>
-      <body className={styles.body}>
-        <Navigation type={slug != null ? "post" : "home"} posts={posts} />
-        <header className={styles.header}>
-          <Background />
-        </header>
-        <main className={styles.main}>{children}</main>
-      </body>
+      <body className={styles.body}>{children}</body>
     </html>
   );
 }
