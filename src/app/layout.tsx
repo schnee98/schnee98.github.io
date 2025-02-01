@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import "@/styles/globals.css";
 import styles from "./layout.module.css";
 import { Analytics } from "./analytics";
-import Navigation from "@/components/navigation/Navigation/Navigation";
 import { getPosts } from "@/utils/postUtils";
-import Background from "@/components/header/Background/Background";
 
 const potionStyles =
   "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
@@ -21,14 +19,9 @@ export async function generateStaticParams() {
 
 export default async function RootLayout({
   children,
-  params,
 }: Readonly<{
   children: React.ReactNode;
-  params: Promise<{ slug: string | undefined }>;
 }>) {
-  const { slug } = await params;
-  const posts = await getPosts();
-
   return (
     <html lang="en">
       <head>
