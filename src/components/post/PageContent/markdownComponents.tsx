@@ -1,7 +1,7 @@
 import { Children } from "react";
 import { ReactNode } from "react";
 import { Components } from "react-markdown";
-import { PrismLight } from "react-syntax-highlighter";
+import PrismLight from "./PrismLight";
 import { materialOceanic } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const customStyle = {
