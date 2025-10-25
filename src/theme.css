@@ -1,0 +1,13 @@
+:root {
+  --color-accent-primary: #dbc670;
+  --color-accent-secondary: #ebda98;
+  --color-accent-tertiary: #2eb873;
+  --color-text-primary: #1a1a1a;
+  --color-text-secondary: #4d4d4d;
+  --color-natural-gray-100: #787878;
+  --color-natural-gray-200: #4d4d4d;
+  --color-natural-gray-300: #f2f2f2;
+  --color-natural-white: #ffffff;
+  --color-background-primary: #fcfcfc;
+  --color-border-primary: #e6e6e6;
+}
