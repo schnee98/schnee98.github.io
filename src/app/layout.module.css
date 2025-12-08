@@ -28,3 +28,7 @@
   overflow: hidden;
   width: 50%;
 }
+
+.main hr {
+  width: 100%;
+}
