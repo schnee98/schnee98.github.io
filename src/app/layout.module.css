@@ -7,6 +7,12 @@
   padding-top: 0rem;
 }
 
+@media (max-width: 400px) {
+  .header {
+    height: 8rem;
+  }
+}
+
 .main {
   display: flex;
   flex-direction: column;

@@ -10,12 +10,24 @@
   animation: bg-pan-top 5s infinite alternate both;
 }
 
+@media (max-width: 400px) {
+  .background {
+    height: 12rem;
+  }
+}
+
 .heading {
   margin: 0;
   padding: 0;
   letter-spacing: -1px;
   font-size: 3.5rem;
   color: rgb(255, 242, 216);
+}
+
+@media (max-width: 400px) {
+  .heading {
+    font-size: 2rem;
+  }
 }
 
 @keyframes bg-pan-top {
