@@ -38,4 +38,3 @@ export interface Education {
   readonly degree?: string;
   readonly description: readonly DescriptionItem[];
 }
-

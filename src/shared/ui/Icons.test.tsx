@@ -21,7 +21,7 @@ import {
   GithubIcon,
   LinkedInIcon,
   CloseIcon,
-  MenuIcon
+  MenuIcon,
 } from './index';
 
 describe('Icons Components', () => {
@@ -32,7 +32,7 @@ describe('Icons Components', () => {
   // Test 1: CalendarIcon 기본 렌더링 확인
   test('CalendarIcon renders with default props', () => {
     const { container } = render(<CalendarIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '16');
@@ -44,7 +44,7 @@ describe('Icons Components', () => {
   // Test 2: ExternalLinkIcon 기본 렌더링 확인
   test('ExternalLinkIcon renders with default props', () => {
     const { container } = render(<ExternalLinkIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '16');
@@ -56,7 +56,7 @@ describe('Icons Components', () => {
   // Test 3: GithubIcon 기본 렌더링 확인
   test('GithubIcon renders with default props', () => {
     const { container } = render(<GithubIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '24');
@@ -67,7 +67,7 @@ describe('Icons Components', () => {
   // Test 4: LinkedInIcon 기본 렌더링 확인
   test('LinkedInIcon renders with default props', () => {
     const { container } = render(<LinkedInIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '24');
@@ -78,7 +78,7 @@ describe('Icons Components', () => {
   // Test 5: CloseIcon 기본 렌더링 확인
   test('CloseIcon renders with default props', () => {
     const { container } = render(<CloseIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '24');
@@ -90,7 +90,7 @@ describe('Icons Components', () => {
   // Test 6: MenuIcon 기본 렌더링 확인
   test('MenuIcon renders with default props', () => {
     const { container } = render(<MenuIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
     expect(svg).toHaveAttribute('width', '24');
@@ -103,7 +103,7 @@ describe('Icons Components', () => {
   test('icons accept custom className', () => {
     const customClass = 'custom-icon-class';
     const { container } = render(<CalendarIcon className={customClass} />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toHaveClass(customClass);
   });
@@ -116,7 +116,7 @@ describe('Icons Components', () => {
         <GithubIcon width={48} height={48} />
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     expect(svgs[0]).toHaveAttribute('width', '32');
     expect(svgs[0]).toHaveAttribute('height', '32');
@@ -134,23 +134,29 @@ describe('Icons Components', () => {
   // Test 10: 컴포넌트 순수성 테스트
   test('icons are pure components', () => {
     const props = { className: 'test', width: 20, height: 20 };
-    
+
     const { container: initialContainer } = render(<CalendarIcon {...props} />);
-    const { container: rerenderedContainer } = render(<CalendarIcon {...props} />);
-    
+    const { container: rerenderedContainer } = render(
+      <CalendarIcon {...props} />
+    );
+
     const initialSvg = initialContainer.querySelector('svg');
     const rerenderedSvg = rerenderedContainer.querySelector('svg');
-    
-    expect(initialSvg?.getAttribute('width')).toBe(rerenderedSvg?.getAttribute('width'));
-    expect(initialSvg?.getAttribute('height')).toBe(rerenderedSvg?.getAttribute('height'));
+
+    expect(initialSvg?.getAttribute('width')).toBe(
+      rerenderedSvg?.getAttribute('width')
+    );
+    expect(initialSvg?.getAttribute('height')).toBe(
+      rerenderedSvg?.getAttribute('height')
+    );
   });
 
   // Test 11: Re-rendering 테스트
   test('icons re-render correctly when props change', () => {
     const { container, rerender } = render(<CalendarIcon />);
-    
+
     rerender(<CalendarIcon className="new-class" width={30} height={30} />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toHaveClass('new-class');
     expect(svg).toHaveAttribute('width', '30');
@@ -160,7 +166,7 @@ describe('Icons Components', () => {
   // Test 12: 메모리 누수 테스트
   test('icons clean up properly on unmount', () => {
     const { unmount } = render(<CalendarIcon />);
-    
+
     expect(() => unmount()).not.toThrow();
   });
 
@@ -176,7 +182,7 @@ describe('Icons Components', () => {
         <MenuIcon />
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     svgs.forEach(svg => {
       expect(svg).toHaveAttribute('viewBox');
@@ -197,13 +203,15 @@ describe('Icons Components', () => {
   // Test 15: SVG 요소 구조 확인
   test('icons have correct SVG structure', () => {
     const { container } = render(<CalendarIcon />);
-    
+
     const svg = container.querySelector('svg');
     expect(svg?.children.length).toBeGreaterThan(0); // 자식 요소가 있어야 함
-    
+
     // SVG 내부에 적절한 요소들이 있는지 확인
-    const hasValidElements = Array.from(svg?.children || []).some(child => 
-      ['rect', 'line', 'path', 'circle', 'polygon', 'polyline'].includes(child.tagName.toLowerCase())
+    const hasValidElements = Array.from(svg?.children || []).some(child =>
+      ['rect', 'line', 'path', 'circle', 'polygon', 'polyline'].includes(
+        child.tagName.toLowerCase()
+      )
     );
     expect(hasValidElements).toBe(true);
   });

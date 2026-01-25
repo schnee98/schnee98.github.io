@@ -3,9 +3,9 @@
  * Core business entity for user profile
  */
 
-export type { 
+export type {
   Profile,
   DescriptionItem,
   Experience,
-  Education 
+  Education,
 } from './Profile';

@@ -1,4 +1,3 @@
-
 import { GithubIcon, LinkedInIcon } from '@/shared/ui/Icons';
 import styles from './SocialLinks.module.css';
 
@@ -34,4 +33,3 @@ export const SocialLinks = ({
     </div>
   );
 };
-

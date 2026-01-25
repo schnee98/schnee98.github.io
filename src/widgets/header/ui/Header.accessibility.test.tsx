@@ -15,8 +15,6 @@ import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import { Header } from './Header';
 
-
-
 describe('Header Component Accessibility', () => {
   beforeEach(() => {
     cleanup();
@@ -51,10 +49,10 @@ describe('Header Component Accessibility', () => {
   test('logo link is keyboard focusable', () => {
     render(<Header />);
     const logoLink = screen.getByRole('link');
-    
+
     logoLink.focus();
     expect(logoLink).toHaveFocus();
-    
+
     // Tab 순서 확인을 위한 tabindex 확인 (기본값이어야 함)
     expect(logoLink).not.toHaveAttribute('tabindex', '-1');
   });
@@ -63,13 +61,13 @@ describe('Header Component Accessibility', () => {
   test('uses semantic HTML elements correctly', () => {
     render(<Header />);
     const header = screen.getByRole('banner');
-    
+
     expect(header.tagName).toBe('HEADER');
-    
+
     // Logo 링크 확인
     const link = header.querySelector('a');
     expect(link).toBeInTheDocument();
-    
+
     // Logo 이미지 확인
     const img = header.querySelector('img');
     expect(img).toBeInTheDocument();
@@ -83,10 +81,10 @@ describe('Header Component Accessibility', () => {
         <Header />
       </div>
     );
-    
+
     const headers = screen.getAllByRole('banner');
     expect(headers.length).toBeGreaterThan(0);
-    
+
     // 각 Header에 Logo 링크가 있는지 확인
     headers.forEach(header => {
       const link = header.querySelector('a');
@@ -98,7 +96,7 @@ describe('Header Component Accessibility', () => {
   test('focus indicators are present', () => {
     render(<Header />);
     const logoLink = screen.getByRole('link');
-    
+
     // focus 시 스타일 클래스 적용 확인
     logoLink.focus();
     expect(logoLink).toHaveFocus();
@@ -107,11 +105,11 @@ describe('Header Component Accessibility', () => {
   // Test 8: 화면 리더 호환성
   test('provides good screen reader experience', () => {
     render(<Header />);
-    
+
     // banner 역할이 화면 리더에서 잘 인식되는지 확인
     const header = screen.getByRole('banner');
     expect(header).toBeInTheDocument();
-    
+
     // Logo 링크가 명확한 목적을 전달하는지 확인
     const logoLink = screen.getByRole('link');
     expect(logoLink).toBeInTheDocument();
@@ -121,11 +119,11 @@ describe('Header Component Accessibility', () => {
   test('supports keyboard navigation', () => {
     render(<Header />);
     const logoLink = screen.getByRole('link');
-    
+
     // Tab 키로 포커스 이동 가능 확인
     logoLink.focus();
     expect(logoLink).toHaveFocus();
-    
+
     // Enter/Space 키로 활성화 가능 확인 (링크의 경우)
     expect(logoLink).toBeEnabled();
   });
@@ -133,17 +131,19 @@ describe('Header Component Accessibility', () => {
   // Test 10: 접근성 룰 준수 확인
   test('follows accessibility best practices', async () => {
     const { container } = render(<Header />);
-    
+
     // 접근성 규칙 준수 여부 확인 (axe-core 필요시)
     // 기본적인 접근성 검사
-    const interactiveElements = container.querySelectorAll('button, a, input, select, textarea');
-    
+    const interactiveElements = container.querySelectorAll(
+      'button, a, input, select, textarea'
+    );
+
     interactiveElements.forEach(element => {
       // 모든 인터랙티브 요소가 접근 가능해야 함
       expect(element).toBeVisible();
       expect(element).not.toBeDisabled();
     });
-    
+
     // 이미지에 alt 텍스트가 있는지 확인
     const images = container.querySelectorAll('img');
     images.forEach(img => {

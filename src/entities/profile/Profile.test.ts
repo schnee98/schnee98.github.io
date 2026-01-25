@@ -1,4 +1,9 @@
-import type { Profile, DescriptionItem, Experience, Education } from '@/entities/profile'
+import type {
+  Profile,
+  DescriptionItem,
+  Experience,
+  Education,
+} from '@/entities/profile';
 
 describe('Profile Entity', () => {
   describe('Profile interface', () => {
@@ -10,46 +15,73 @@ describe('Profile Entity', () => {
         imageUrl: 'https://example.com/profile.jpg',
         email: { address: 'john@example.com', label: 'Email' },
         github: { address: 'https://github.com/johndoe', label: 'GitHub' },
-        linkedin: { address: 'https://linkedin.com/in/johndoe', label: 'LinkedIn' },
-      }
+        linkedin: {
+          address: 'https://linkedin.com/in/johndoe',
+          label: 'LinkedIn',
+        },
+      };
 
-      expect(profile.name).toBe('John Doe')
-      expect(profile.title).toBe('Full Stack Developer')
-      expect(profile.description).toEqual(['Experienced developer', 'Specialized in React'])
-      expect(profile.imageUrl).toBe('https://example.com/profile.jpg')
-      expect(profile.email).toEqual({ address: 'john@example.com', label: 'Email' })
-      expect(profile.github).toEqual({ address: 'https://github.com/johndoe', label: 'GitHub' })
-      expect(profile.linkedin).toEqual({ address: 'https://linkedin.com/in/johndoe', label: 'LinkedIn' })
-    })
-  })
+      expect(profile.name).toBe('John Doe');
+      expect(profile.title).toBe('Full Stack Developer');
+      expect(profile.description).toEqual([
+        'Experienced developer',
+        'Specialized in React',
+      ]);
+      expect(profile.imageUrl).toBe('https://example.com/profile.jpg');
+      expect(profile.email).toEqual({
+        address: 'john@example.com',
+        label: 'Email',
+      });
+      expect(profile.github).toEqual({
+        address: 'https://github.com/johndoe',
+        label: 'GitHub',
+      });
+      expect(profile.linkedin).toEqual({
+        address: 'https://linkedin.com/in/johndoe',
+        label: 'LinkedIn',
+      });
+    });
+  });
 
   describe('Link interface (nested in Profile)', () => {
     it('handles various link formats', () => {
-      const emailLink = { address: 'user@domain.com', label: 'Email' }
-      const githubLink = { address: 'https://github.com/user/repo', label: 'GitHub' }
-      const linkedinLink = { address: 'https://linkedin.com/in/user', label: 'LinkedIn' }
-      const websiteLink = { address: 'https://example.com', label: 'Website' }
+      const emailLink = { address: 'user@domain.com', label: 'Email' };
+      const githubLink = {
+        address: 'https://github.com/user/repo',
+        label: 'GitHub',
+      };
+      const linkedinLink = {
+        address: 'https://linkedin.com/in/user',
+        label: 'LinkedIn',
+      };
+      const websiteLink = { address: 'https://example.com', label: 'Website' };
 
-      expect(emailLink.address).toBe('user@domain.com')
-      expect(githubLink.address).toBe('https://github.com/user/repo')
-      expect(linkedinLink.address).toBe('https://linkedin.com/in/user')
-      expect(websiteLink.address).toBe('https://example.com')
-    })
+      expect(emailLink.address).toBe('user@domain.com');
+      expect(githubLink.address).toBe('https://github.com/user/repo');
+      expect(linkedinLink.address).toBe('https://linkedin.com/in/user');
+      expect(websiteLink.address).toBe('https://example.com');
+    });
 
     it('handles special characters in links', () => {
       const specialLinks = [
         { address: 'user+tag@domain.co.uk', label: 'Special Email' },
-        { address: 'https://github.com/user-name_123', label: 'GitHub Profile' },
-        { address: 'https://linkedin.com/in/user-with-special-name', label: 'LinkedIn' },
+        {
+          address: 'https://github.com/user-name_123',
+          label: 'GitHub Profile',
+        },
+        {
+          address: 'https://linkedin.com/in/user-with-special-name',
+          label: 'LinkedIn',
+        },
         { address: 'https://example.com/path/with-特殊', label: 'Special URL' },
-      ]
+      ];
 
       specialLinks.forEach(link => {
-        expect(link.address).toBeDefined()
-        expect(link.label).toBeDefined()
-      })
-    })
-  })
+        expect(link.address).toBeDefined();
+        expect(link.label).toBeDefined();
+      });
+    });
+  });
 
   describe('Description property', () => {
     it('handles various description scenarios', () => {
@@ -62,8 +94,11 @@ describe('Profile Entity', () => {
         ['Item with "quotes" and & symbols'],
         ['Item with émojis 🚀', 'Item with spéciål chàrs'],
         ['A', 'B'],
-        ['Very long description item that goes on and on', 'Another long item with many details'],
-      ]
+        [
+          'Very long description item that goes on and on',
+          'Another long item with many details',
+        ],
+      ];
 
       descriptionScenarios.forEach((description, index) => {
         const profile: Profile = {
@@ -73,14 +108,17 @@ describe('Profile Entity', () => {
           imageUrl: 'https://example.com/test.jpg',
           email: { address: `test${index}@example.com`, label: 'Email' },
           github: { address: 'https://github.com/test', label: 'GitHub' },
-          linkedin: { address: 'https://linkedin.com/in/test', label: 'LinkedIn' },
-        }
-        expect(profile.description).toEqual(description)
-        expect(Array.isArray(profile.description)).toBe(true)
-        expect(profile.description).toHaveLength(description.length)
-      })
-    })
-  })
+          linkedin: {
+            address: 'https://linkedin.com/in/test',
+            label: 'LinkedIn',
+          },
+        };
+        expect(profile.description).toEqual(description);
+        expect(Array.isArray(profile.description)).toBe(true);
+        expect(profile.description).toHaveLength(description.length);
+      });
+    });
+  });
 
   describe('Name and Title properties', () => {
     it('handles various name formats', () => {
@@ -95,7 +133,7 @@ describe('Profile Entity', () => {
         '',
         ' ',
         'Very long name with many middle names and multiple parts',
-      ]
+      ];
 
       validNames.forEach(name => {
         const profile: Profile = {
@@ -105,11 +143,14 @@ describe('Profile Entity', () => {
           imageUrl: 'https://example.com/test.jpg',
           email: { address: 'test@example.com', label: 'Email' },
           github: { address: 'https://github.com/test', label: 'GitHub' },
-          linkedin: { address: 'https://linkedin.com/in/test', label: 'LinkedIn' },
-        }
-        expect(profile.name).toBe(name)
-      })
-    })
+          linkedin: {
+            address: 'https://linkedin.com/in/test',
+            label: 'LinkedIn',
+          },
+        };
+        expect(profile.name).toBe(name);
+      });
+    });
 
     it('handles various title formats', () => {
       const validTitles = [
@@ -122,7 +163,7 @@ describe('Profile Entity', () => {
         'A',
         '',
         'Very impressive title with many words and descriptions',
-      ]
+      ];
 
       validTitles.forEach(title => {
         const profile: Profile = {
@@ -132,12 +173,15 @@ describe('Profile Entity', () => {
           imageUrl: 'https://example.com/test.jpg',
           email: { address: 'test@example.com', label: 'Email' },
           github: { address: 'https://github.com/test', label: 'GitHub' },
-          linkedin: { address: 'https://linkedin.com/in/test', label: 'LinkedIn' },
-        }
-        expect(profile.title).toBe(title)
-      })
-    })
-  })
+          linkedin: {
+            address: 'https://linkedin.com/in/test',
+            label: 'LinkedIn',
+          },
+        };
+        expect(profile.title).toBe(title);
+      });
+    });
+  });
 
   describe('ImageUrl property', () => {
     it('handles various URL formats', () => {
@@ -148,7 +192,7 @@ describe('Profile Entity', () => {
         'https://subdomain.example.co.uk/path/to/profile.jpeg',
         '',
         'https://example.com/image-with-dashes_123.jpg',
-      ]
+      ];
 
       validImageUrls.forEach(imageUrl => {
         const profile: Profile = {
@@ -158,12 +202,15 @@ describe('Profile Entity', () => {
           imageUrl,
           email: { address: 'test@example.com', label: 'Email' },
           github: { address: 'https://github.com/test', label: 'GitHub' },
-          linkedin: { address: 'https://linkedin.com/in/test', label: 'LinkedIn' },
-        }
-        expect(profile.imageUrl).toBe(imageUrl)
-      })
-    })
-  })
+          linkedin: {
+            address: 'https://linkedin.com/in/test',
+            label: 'LinkedIn',
+          },
+        };
+        expect(profile.imageUrl).toBe(imageUrl);
+      });
+    });
+  });
 
   describe('Type safety', () => {
     it('requires all mandatory properties', () => {
@@ -174,11 +221,14 @@ describe('Profile Entity', () => {
         imageUrl: 'https://example.com/minimal.jpg',
         email: { address: 'minimal@example.com', label: 'Email' },
         github: { address: 'https://github.com/minimal', label: 'GitHub' },
-        linkedin: { address: 'https://linkedin.com/in/minimal', label: 'LinkedIn' },
-      }
+        linkedin: {
+          address: 'https://linkedin.com/in/minimal',
+          label: 'LinkedIn',
+        },
+      };
 
-      expect(Object.keys(minimalProfile)).toHaveLength(7)
-    })
+      expect(Object.keys(minimalProfile)).toHaveLength(7);
+    });
 
     it('has proper property types', () => {
       const profile: Profile = {
@@ -188,49 +238,52 @@ describe('Profile Entity', () => {
         imageUrl: 'https://example.com/test.jpg',
         email: { address: 'test@example.com', label: 'Email' },
         github: { address: 'https://github.com/test', label: 'GitHub' },
-        linkedin: { address: 'https://linkedin.com/in/test', label: 'LinkedIn' },
-      }
+        linkedin: {
+          address: 'https://linkedin.com/in/test',
+          label: 'LinkedIn',
+        },
+      };
 
-      expect(typeof profile.name).toBe('string')
-      expect(typeof profile.title).toBe('string')
-      expect(Array.isArray(profile.description)).toBe(true)
-      expect(typeof profile.imageUrl).toBe('string')
-      expect(typeof profile.email).toBe('object')
-      expect(typeof profile.github).toBe('object')
-      expect(typeof profile.linkedin).toBe('object')
-    })
-  })
-})
+      expect(typeof profile.name).toBe('string');
+      expect(typeof profile.title).toBe('string');
+      expect(Array.isArray(profile.description)).toBe(true);
+      expect(typeof profile.imageUrl).toBe('string');
+      expect(typeof profile.email).toBe('object');
+      expect(typeof profile.github).toBe('object');
+      expect(typeof profile.linkedin).toBe('object');
+    });
+  });
+});
 
 describe('DescriptionItem Interface', () => {
   it('has all required properties', () => {
     const item: DescriptionItem = {
       text: 'Main description text',
-    }
+    };
 
-    expect(item.text).toBe('Main description text')
-    expect(item.subItems).toBeUndefined()
-  })
+    expect(item.text).toBe('Main description text');
+    expect(item.subItems).toBeUndefined();
+  });
 
   it('allows optional subItems', () => {
     const item: DescriptionItem = {
       text: 'Main description text',
       subItems: ['Sub item 1', 'Sub item 2'],
-    }
+    };
 
-    expect(item.text).toBe('Main description text')
-    expect(item.subItems).toEqual(['Sub item 1', 'Sub item 2'])
-  })
+    expect(item.text).toBe('Main description text');
+    expect(item.subItems).toEqual(['Sub item 1', 'Sub item 2']);
+  });
 
   it('handles empty subItems', () => {
     const item: DescriptionItem = {
       text: 'Main description text',
       subItems: [],
-    }
+    };
 
-    expect(item.text).toBe('Main description text')
-    expect(item.subItems).toEqual([])
-  })
+    expect(item.text).toBe('Main description text');
+    expect(item.subItems).toEqual([]);
+  });
 
   it('handles various text content', () => {
     const textVariations = [
@@ -242,13 +295,13 @@ describe('DescriptionItem Interface', () => {
       '',
       ' ',
       'Very long description text with many words and detailed explanations',
-    ]
+    ];
 
     textVariations.forEach(text => {
-      const item: DescriptionItem = { text }
-      expect(item.text).toBe(text)
-    })
-  })
+      const item: DescriptionItem = { text };
+      expect(item.text).toBe(text);
+    });
+  });
 
   it('handles various subItems scenarios', () => {
     const subItemsScenarios = [
@@ -258,17 +311,17 @@ describe('DescriptionItem Interface', () => {
       ['Item 1', 'Item 2', 'Item 3'],
       ['Item with "special" chars', 'Item with émojis 🎉'],
       ['A', 'B'],
-    ]
+    ];
 
     subItemsScenarios.forEach((subItems, index) => {
       const item: DescriptionItem = {
         text: `Test item ${index}`,
         subItems,
-      }
-      expect(item.subItems).toEqual(subItems)
-    })
-  })
-})
+      };
+      expect(item.subItems).toEqual(subItems);
+    });
+  });
+});
 
 describe('Experience Interface', () => {
   it('has all required properties', () => {
@@ -279,16 +332,19 @@ describe('Experience Interface', () => {
       position: 'Senior Developer',
       description: [
         { text: 'Led development team' },
-        { text: 'Architected solutions', subItems: ['Web apps', 'Mobile apps'] },
+        {
+          text: 'Architected solutions',
+          subItems: ['Web apps', 'Mobile apps'],
+        },
       ],
-    }
+    };
 
-    expect(experience.id).toBe('exp-1')
-    expect(experience.period).toBe('2020-2023')
-    expect(experience.company).toBe('Tech Company')
-    expect(experience.position).toBe('Senior Developer')
-    expect(experience.description).toHaveLength(2)
-  })
+    expect(experience.id).toBe('exp-1');
+    expect(experience.period).toBe('2020-2023');
+    expect(experience.company).toBe('Tech Company');
+    expect(experience.position).toBe('Senior Developer');
+    expect(experience.description).toHaveLength(2);
+  });
 
   it('handles various period formats', () => {
     const periods = [
@@ -298,7 +354,7 @@ describe('Experience Interface', () => {
       '2020',
       'Present',
       '2020 - Present',
-    ]
+    ];
 
     periods.forEach((period, index) => {
       const experience: Experience = {
@@ -307,10 +363,10 @@ describe('Experience Interface', () => {
         company: 'Test Company',
         position: 'Developer',
         description: [{ text: 'Test description' }],
-      }
-      expect(experience.period).toBe(period)
-    })
-  })
+      };
+      expect(experience.period).toBe(period);
+    });
+  });
 
   it('handles various company and position names', () => {
     const validNames = [
@@ -322,7 +378,7 @@ describe('Experience Interface', () => {
       'A',
       '',
       'Very long company name with many words and descriptions',
-    ]
+    ];
 
     validNames.forEach((company, index) => {
       const experience: Experience = {
@@ -331,10 +387,10 @@ describe('Experience Interface', () => {
         company,
         position: 'Developer',
         description: [{ text: 'Test description' }],
-      }
-      expect(experience.company).toBe(company)
-    })
-  })
+      };
+      expect(experience.company).toBe(company);
+    });
+  });
 
   it('handles complex description scenarios', () => {
     const descriptionScenarios = [
@@ -345,7 +401,7 @@ describe('Experience Interface', () => {
         { text: 'Third responsibility', subItems: [] },
       ],
       [],
-    ]
+    ];
 
     descriptionScenarios.forEach((description, index) => {
       const experience: Experience = {
@@ -354,11 +410,11 @@ describe('Experience Interface', () => {
         company: 'Test Company',
         position: 'Developer',
         description,
-      }
-      expect(experience.description).toEqual(description)
-    })
-  })
-})
+      };
+      expect(experience.description).toEqual(description);
+    });
+  });
+});
 
 describe('Education Interface', () => {
   it('has all required properties', () => {
@@ -369,16 +425,19 @@ describe('Education Interface', () => {
       degree: 'Bachelor of Science',
       description: [
         { text: 'Studied Computer Science' },
-        { text: 'Relevant coursework', subItems: ['Algorithms', 'Data Structures'] },
+        {
+          text: 'Relevant coursework',
+          subItems: ['Algorithms', 'Data Structures'],
+        },
       ],
-    }
+    };
 
-    expect(education.id).toBe('edu-1')
-    expect(education.period).toBe('2016-2020')
-    expect(education.institution).toBe('University Name')
-    expect(education.degree).toBe('Bachelor of Science')
-    expect(education.description).toHaveLength(2)
-  })
+    expect(education.id).toBe('edu-1');
+    expect(education.period).toBe('2016-2020');
+    expect(education.institution).toBe('University Name');
+    expect(education.degree).toBe('Bachelor of Science');
+    expect(education.description).toHaveLength(2);
+  });
 
   it('allows optional degree', () => {
     const education: Education = {
@@ -386,11 +445,11 @@ describe('Education Interface', () => {
       period: '2018-2019',
       institution: 'Bootcamp',
       description: [{ text: 'Intensive training program' }],
-    }
+    };
 
-    expect(education.degree).toBeUndefined()
-    expect(education.institution).toBe('Bootcamp')
-  })
+    expect(education.degree).toBeUndefined();
+    expect(education.institution).toBe('Bootcamp');
+  });
 
   it('handles various institution names', () => {
     const institutions = [
@@ -401,7 +460,7 @@ describe('Education Interface', () => {
       'A',
       '',
       'Very long institution name with many departments and specializations',
-    ]
+    ];
 
     institutions.forEach((institution, index) => {
       const education: Education = {
@@ -409,10 +468,10 @@ describe('Education Interface', () => {
         period: '2016-2020',
         institution,
         description: [{ text: 'Test description' }],
-      }
-      expect(education.institution).toBe(institution)
-    })
-  })
+      };
+      expect(education.institution).toBe(institution);
+    });
+  });
 
   it('handles various degree formats', () => {
     const degrees = [
@@ -425,7 +484,7 @@ describe('Education Interface', () => {
       '修士号',
       '',
       'Very long degree name with many specializations and honors',
-    ]
+    ];
 
     degrees.forEach((degree, index) => {
       const education: Education = {
@@ -434,10 +493,10 @@ describe('Education Interface', () => {
         institution: 'Test University',
         degree,
         description: [{ text: 'Test description' }],
-      }
-      expect(education.degree).toBe(degree)
-    })
-  })
+      };
+      expect(education.degree).toBe(degree);
+    });
+  });
 
   it('handles complex description scenarios similar to Experience', () => {
     const descriptionScenarios = [
@@ -447,7 +506,7 @@ describe('Education Interface', () => {
         { text: 'Electives' },
         { text: 'Thesis work', subItems: ['Research', 'Writing'] },
       ],
-    ]
+    ];
 
     descriptionScenarios.forEach((description, index) => {
       const education: Education = {
@@ -455,8 +514,8 @@ describe('Education Interface', () => {
         period: '2016-2020',
         institution: 'Test University',
         description,
-      }
-      expect(education.description).toEqual(description)
-    })
-  })
-})
+      };
+      expect(education.description).toEqual(description);
+    });
+  });
+});

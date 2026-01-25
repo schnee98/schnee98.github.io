@@ -38,7 +38,7 @@ export const BlogCard = ({ post }: BlogCardProps) => {
         )}
         {post.tags && post.tags.length > 0 && (
           <div className={styles.tags}>
-            {post.tags.slice(0, 3).map((tag) => (
+            {post.tags.slice(0, 3).map(tag => (
               <span key={tag} className={styles.tag}>
                 #{tag}
               </span>
@@ -49,4 +49,3 @@ export const BlogCard = ({ post }: BlogCardProps) => {
     </Link>
   );
 };
-

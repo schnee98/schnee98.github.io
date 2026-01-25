@@ -13,8 +13,8 @@ export default function NotFound() {
             <div className={styles.text}>
               <h2 className="h2">Whoops!</h2>
               <p className="paragraph">
-                It looks like that page doesn&apos;t exist. Please check the URL and
-                try again.
+                It looks like that page doesn&apos;t exist. Please check the URL
+                and try again.
               </p>
             </div>
             <Button href="/" variant="secondary">
@@ -26,4 +26,3 @@ export default function NotFound() {
     </main>
   );
 }
-

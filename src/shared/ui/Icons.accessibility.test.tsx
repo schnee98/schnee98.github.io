@@ -6,7 +6,7 @@ import {
   GithubIcon,
   LinkedInIcon,
   CloseIcon,
-  MenuIcon
+  MenuIcon,
 } from './index';
 
 describe('Icons Component Accessibility', () => {
@@ -22,7 +22,7 @@ describe('Icons Component Accessibility', () => {
         <GithubIcon />
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     svgs.forEach(svg => {
       // SVG는 기본적으로 semantic하지 않지만, 아이콘으로 사용될 때는 role="img"을 가져야 함
@@ -46,7 +46,7 @@ describe('Icons Component Accessibility', () => {
         </button>
       </div>
     );
-    
+
     // 부모 요소가 적절한 aria-label을 가지는지 확인
     const buttons = container.querySelectorAll('button');
     buttons.forEach(button => {
@@ -66,11 +66,13 @@ describe('Icons Component Accessibility', () => {
         <LinkedInIcon />
       </div>
     );
-    
+
     // stroke 아이콘은 currentColor를 사용해야 함
-    const strokeIcons = container.querySelectorAll('svg[stroke="currentColor"]');
+    const strokeIcons = container.querySelectorAll(
+      'svg[stroke="currentColor"]'
+    );
     expect(strokeIcons.length).toBeGreaterThan(0);
-    
+
     // fill 아이콘도 currentColor를 사용해야 함
     const fillIcons = container.querySelectorAll('svg[fill="currentColor"]');
     expect(fillIcons.length).toBeGreaterThan(0);
@@ -80,11 +82,15 @@ describe('Icons Component Accessibility', () => {
   test('icons in buttons are keyboard accessible', () => {
     const { container } = render(
       <div>
-        <button><CloseIcon /></button>
-        <button><MenuIcon /></button>
+        <button>
+          <CloseIcon />
+        </button>
+        <button>
+          <MenuIcon />
+        </button>
       </div>
     );
-    
+
     const buttons = container.querySelectorAll('button');
     buttons.forEach(button => {
       expect(button).not.toHaveAttribute('disabled');
@@ -104,11 +110,11 @@ describe('Icons Component Accessibility', () => {
         </a>
       </div>
     );
-    
+
     // 부모 요소의 aria-label로 화면 리더가 내용을 전달해야 함
     const button = container.querySelector('button');
     const link = container.querySelector('a');
-    
+
     expect(button).toHaveAttribute('aria-label', 'Close dialog');
     expect(link).toHaveAttribute('aria-label', 'GitHub profile');
   });
@@ -125,7 +131,7 @@ describe('Icons Component Accessibility', () => {
         </span>
       </div>
     );
-    
+
     const spans = container.querySelectorAll('.decoration');
     spans.forEach(span => {
       // 장식용 아이콘은 aria-hidden이거나 role="presentation"을 가져야 함
@@ -147,12 +153,12 @@ describe('Icons Component Accessibility', () => {
         <CloseIcon width={40} height={40} />
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     svgs.forEach(svg => {
       const width = svg.getAttribute('width');
       const height = svg.getAttribute('height');
-      
+
       // 크기가 숫자이고 양수인지 확인
       expect(Number(width)).toBeGreaterThan(0);
       expect(Number(height)).toBeGreaterThan(0);
@@ -169,13 +175,13 @@ describe('Icons Component Accessibility', () => {
         <CloseIcon />
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     svgs.forEach(svg => {
       // currentColor를 사용하면 고대비 모드에서 잘 동작해야 함
       const stroke = svg.getAttribute('stroke');
       const fill = svg.getAttribute('fill');
-      
+
       expect(stroke === 'currentColor' || fill === 'currentColor').toBe(true);
     });
   });
@@ -188,7 +194,7 @@ describe('Icons Component Accessibility', () => {
         Menu
       </button>
     );
-    
+
     const button = container.querySelector('button');
     if (button) {
       button.focus();
@@ -208,7 +214,7 @@ describe('Icons Component Accessibility', () => {
         </div>
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     svgs.forEach(svg => {
       // currentColor를 사용하면 부모의 color를 상속받아 가시성 유지
@@ -226,21 +232,29 @@ describe('Icons Component Accessibility', () => {
         <MenuIcon />
       </div>
     );
-    
+
     const svgs = container.querySelectorAll('svg');
     const socialIcons = [svgs[0], svgs[1]]; // Github, LinkedIn
     const actionIcons = [svgs[2], svgs[3]]; // Close, Menu
-    
+
     // 소셜 아이콘은 크기가 동일해야 함
     if (socialIcons[0] && socialIcons[1]) {
-      expect(socialIcons[0].getAttribute('width')).toBe(socialIcons[1].getAttribute('width'));
-      expect(socialIcons[0].getAttribute('height')).toBe(socialIcons[1].getAttribute('height'));
+      expect(socialIcons[0].getAttribute('width')).toBe(
+        socialIcons[1].getAttribute('width')
+      );
+      expect(socialIcons[0].getAttribute('height')).toBe(
+        socialIcons[1].getAttribute('height')
+      );
     }
-    
+
     // 액션 아이콘은 크기가 동일해야 함
     if (actionIcons[0] && actionIcons[1]) {
-      expect(actionIcons[0].getAttribute('width')).toBe(actionIcons[1].getAttribute('width'));
-      expect(actionIcons[0].getAttribute('height')).toBe(actionIcons[1].getAttribute('height'));
+      expect(actionIcons[0].getAttribute('width')).toBe(
+        actionIcons[1].getAttribute('width')
+      );
+      expect(actionIcons[0].getAttribute('height')).toBe(
+        actionIcons[1].getAttribute('height')
+      );
     }
   });
 
@@ -251,10 +265,10 @@ describe('Icons Component Accessibility', () => {
         <CalendarIcon width={16} height={16} />
       </div>
     );
-    
+
     const svg = container.querySelector('svg');
     expect(svg).toBeInTheDocument();
-    
+
     // 확대되어도 viewBox는 유지되어야 함
     expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
   });

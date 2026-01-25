@@ -18,8 +18,8 @@ export const profileData: Profile = {
   name: '박주은',
   title: 'Welcome!',
   description: [
-    "This is Schnee. ",
-    "Frontend Developer interested in the value of solid, reliable and robust products.",
+    'This is Schnee. ',
+    'Frontend Developer interested in the value of solid, reliable and robust products.',
   ],
   imageUrl: 'https://framerusercontent.com/images/T8snMPOr6eSPI6cbUJhGXL8.jpg',
   email: {
@@ -31,13 +31,14 @@ export const profileData: Profile = {
     label: 'github.com/schnee98',
   },
   linkedin: {
-    address: 'https://www.linkedin.com/in/%EC%A3%BC%EC%9D%80-%EB%B0%95-90281a290/',
+    address:
+      'https://www.linkedin.com/in/%EC%A3%BC%EC%9D%80-%EB%B0%95-90281a290/',
     label: '박주은',
   },
 };
 
 export const aboutData = {
-  title: "안녕하세요, 프론트엔드 개발자 박주은입니다.",
+  title: '안녕하세요, 프론트엔드 개발자 박주은입니다.',
   description: `저는 소프트웨어를 통해 가치를 전달할 수 있을 때 희열을 느낍니다.
 
 프론트엔드 개발을 하고 있고, 사랑받고 신뢰할 수 있는 제품을 만드는 것에 관심이 많습니다.
@@ -232,4 +233,3 @@ export const blogPostsData = blogListData.map(post => ({
   category: post.category,
   tags: post.tags ? [...post.tags] : undefined,
 }));
-

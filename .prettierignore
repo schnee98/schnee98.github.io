@@ -1,0 +1,39 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Build output
+.next
+out
+dist
+build
+
+# Cache
+.cache
+.turbo
+.vercel
+
+# Coverage
+coverage
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.*
+
+# OS
+.DS_Store
+
+# IDE
+.vscode
+.idea
+
+# Test
+playwright-report
+
+# Generated files
+*.min.js
+*.min.css
+

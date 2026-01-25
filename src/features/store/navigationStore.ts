@@ -11,9 +11,8 @@ interface NavigationState {
   closeMenu: () => void;
 }
 
-export const useNavigationStore = create<NavigationState>((set) => ({
+export const useNavigationStore = create<NavigationState>(set => ({
   isMenuOpen: false,
-  toggleMenu: () => set((state) => ({ isMenuOpen: !state.isMenuOpen })),
+  toggleMenu: () => set(state => ({ isMenuOpen: !state.isMenuOpen })),
   closeMenu: () => set({ isMenuOpen: false }),
 }));
-

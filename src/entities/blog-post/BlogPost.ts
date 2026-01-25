@@ -14,4 +14,3 @@ export interface BlogPost {
   readonly category?: string;
   readonly tags?: readonly string[];
 }
-

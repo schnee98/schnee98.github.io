@@ -50,7 +50,11 @@ export interface BlogListItem {
   imageUrl?: string;
 }
 
-export type BlogPostSortOrder = 'date-desc' | 'date-asc' | 'title-asc' | 'title-desc';
+export type BlogPostSortOrder =
+  | 'date-desc'
+  | 'date-asc'
+  | 'title-asc'
+  | 'title-desc';
 
 export interface BlogFilterOptions {
   category?: string;

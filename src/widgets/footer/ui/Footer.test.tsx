@@ -43,11 +43,11 @@ describe('Footer Component', () => {
     render(<Footer />);
     const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
-    
+
     // copyright div 확인
     const copyrightDiv = footer.querySelector('.copyright');
     expect(copyrightDiv).toBeInTheDocument();
-    
+
     // SocialLinks 컨테이너 확인
     const socialLinksContainer = footer.querySelector('.socialLinks');
     expect(socialLinksContainer).toBeInTheDocument();
@@ -73,10 +73,10 @@ describe('Footer Component', () => {
   test('is pure component - same props produce same output', () => {
     const { rerender } = render(<Footer />);
     const initialFooter = screen.getByRole('contentinfo');
-    
+
     rerender(<Footer />);
     const rerenderedFooter = screen.getByRole('contentinfo');
-    
+
     expect(initialFooter).toEqual(rerenderedFooter);
   });
 
@@ -89,7 +89,7 @@ describe('Footer Component', () => {
   test('re-renders correctly without memory leaks', () => {
     const { rerender } = render(<Footer />);
     const footer = screen.getByRole('contentinfo');
-    
+
     // Multiple re-renders
     for (let i = 0; i < 5; i++) {
       rerender(<Footer />);
@@ -100,9 +100,9 @@ describe('Footer Component', () => {
   // Test 9: 메모리 누수 테스트
   test('cleans up properly on unmount', () => {
     const { unmount } = render(<Footer />);
-    
+
     expect(() => unmount()).not.toThrow();
-    
+
     // Component should not exist after unmount
     expect(screen.queryByRole('contentinfo')).not.toBeInTheDocument();
   });
@@ -111,13 +111,13 @@ describe('Footer Component', () => {
   test('maintains correct component tree structure', () => {
     render(<Footer />);
     const footer = screen.getByRole('contentinfo');
-    
+
     // Footer는 copyright div와 SocialLinks를 가짐
     expect(footer.children).toHaveLength(2);
-    
+
     const copyrightDiv = footer.querySelector('.copyright');
     const socialLinksContainer = footer.querySelector('.socialLinks');
-    
+
     expect(copyrightDiv).toBeInTheDocument();
     expect(socialLinksContainer).toBeInTheDocument();
   });

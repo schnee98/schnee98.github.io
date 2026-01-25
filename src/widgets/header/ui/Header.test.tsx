@@ -43,7 +43,7 @@ describe('Header Component', () => {
     render(<Header />);
     const header = screen.getByRole('banner');
     expect(header).toBeInTheDocument();
-    
+
     // Logo 이미지 확인
     const logoImage = screen.getByAltText('Logo');
     expect(logoImage).toBeInTheDocument();
@@ -69,10 +69,10 @@ describe('Header Component', () => {
   test('is pure component - same props produce same output', () => {
     const { rerender } = render(<Header />);
     const initialHeader = screen.getByRole('banner');
-    
+
     rerender(<Header />);
     const rerenderedHeader = screen.getByRole('banner');
-    
+
     expect(initialHeader).toEqual(rerenderedHeader);
   });
 
@@ -85,7 +85,7 @@ describe('Header Component', () => {
   test('re-renders correctly without memory leaks', () => {
     const { rerender } = render(<Header />);
     const header = screen.getByRole('banner');
-    
+
     // Multiple re-renders
     for (let i = 0; i < 5; i++) {
       rerender(<Header />);
@@ -96,9 +96,9 @@ describe('Header Component', () => {
   // Test 9: 메모리 누수 테스트
   test('cleans up properly on unmount', () => {
     const { unmount } = render(<Header />);
-    
+
     expect(() => unmount()).not.toThrow();
-    
+
     // Component should not exist after unmount
     expect(screen.queryByRole('banner')).not.toBeInTheDocument();
   });
@@ -107,7 +107,7 @@ describe('Header Component', () => {
   test('maintains correct component tree structure', () => {
     render(<Header />);
     const header = screen.getByRole('banner');
-    
+
     expect(header.children).toHaveLength(1);
     const child = header.firstChild;
     expect((child as Element)?.tagName).toBe('A'); // Logo Link component

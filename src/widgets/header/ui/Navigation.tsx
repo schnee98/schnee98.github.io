@@ -12,7 +12,11 @@ export const Navigation = () => {
 
   return (
     <>
-      <nav className={styles.navigation} role="navigation" aria-label="Main navigation">
+      <nav
+        className={styles.navigation}
+        role="navigation"
+        aria-label="Main navigation"
+      >
         <div className={styles.container}>
           <div className={styles.links} role="menubar">
             <Link
@@ -48,7 +52,7 @@ export const Navigation = () => {
         </div>
       </nav>
       {isMenuOpen && (
-        <div 
+        <div
           id="mobile-menu"
           className={`${styles.mobileMenu} ${styles.open}`}
           role="menu"
@@ -76,4 +80,3 @@ export const Navigation = () => {
     </>
   );
 };
-

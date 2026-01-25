@@ -1,4 +1,4 @@
-import type { Project, ProjectFilters } from '@/entities/project'
+import type { Project, ProjectFilters } from '@/entities/project';
 
 describe('Project Entity', () => {
   describe('Project interface', () => {
@@ -11,17 +11,17 @@ describe('Project Entity', () => {
         imageUrl: 'https://example.com/image.jpg',
         imageAlt: 'Test project image',
         link: 'https://github.com/test/project',
-      }
+      };
 
-      expect(project.id).toBe('project-1')
-      expect(project.title).toBe('Test Project')
-      expect(project.description).toBe('A test project description')
-      expect(project.tags).toEqual(['React', 'TypeScript'])
-      expect(project.imageUrl).toBe('https://example.com/image.jpg')
-      expect(project.imageAlt).toBe('Test project image')
-      expect(project.link).toBe('https://github.com/test/project')
-      expect(project.year).toBeUndefined()
-    })
+      expect(project.id).toBe('project-1');
+      expect(project.title).toBe('Test Project');
+      expect(project.description).toBe('A test project description');
+      expect(project.tags).toEqual(['React', 'TypeScript']);
+      expect(project.imageUrl).toBe('https://example.com/image.jpg');
+      expect(project.imageAlt).toBe('Test project image');
+      expect(project.link).toBe('https://github.com/test/project');
+      expect(project.year).toBeUndefined();
+    });
 
     it('allows optional year property', () => {
       const project: Project = {
@@ -33,43 +33,43 @@ describe('Project Entity', () => {
         imageAlt: 'Test project image',
         link: 'https://github.com/test/project',
         year: 2023,
-      }
+      };
 
-      expect(project.year).toBe(2023)
-    })
-  })
+      expect(project.year).toBe(2023);
+    });
+  });
 
   describe('ProjectFilters interface', () => {
     it('allows empty filters', () => {
-      const filters: ProjectFilters = {}
-      expect(Object.keys(filters)).toHaveLength(0)
-    })
+      const filters: ProjectFilters = {};
+      expect(Object.keys(filters)).toHaveLength(0);
+    });
 
     it('allows tag-only filter', () => {
       const filters: ProjectFilters = {
         tags: ['React', 'TypeScript'],
-      }
-      expect(filters.tags).toEqual(['React', 'TypeScript'])
-      expect(filters.year).toBeUndefined()
-    })
+      };
+      expect(filters.tags).toEqual(['React', 'TypeScript']);
+      expect(filters.year).toBeUndefined();
+    });
 
     it('allows year-only filter', () => {
       const filters: ProjectFilters = {
         year: 2023,
-      }
-      expect(filters.year).toBe(2023)
-      expect(filters.tags).toBeUndefined()
-    })
+      };
+      expect(filters.year).toBe(2023);
+      expect(filters.tags).toBeUndefined();
+    });
 
     it('allows combined filters', () => {
       const filters: ProjectFilters = {
         tags: ['React'],
         year: 2023,
-      }
-      expect(filters.tags).toEqual(['React'])
-      expect(filters.year).toBe(2023)
-    })
-  })
+      };
+      expect(filters.tags).toEqual(['React']);
+      expect(filters.year).toBe(2023);
+    });
+  });
 
   describe('Edge cases and validation', () => {
     it('handles empty tags array', () => {
@@ -81,11 +81,11 @@ describe('Project Entity', () => {
         imageUrl: 'https://example.com/image.jpg',
         imageAlt: 'Test project image',
         link: 'https://github.com/test/project',
-      }
+      };
 
-      expect(project.tags).toEqual([])
-      expect(project.tags).toHaveLength(0)
-    })
+      expect(project.tags).toEqual([]);
+      expect(project.tags).toHaveLength(0);
+    });
 
     it('handles single tag', () => {
       const project: Project = {
@@ -96,31 +96,40 @@ describe('Project Entity', () => {
         imageUrl: 'https://example.com/image.jpg',
         imageAlt: 'Test project image',
         link: 'https://github.com/test/project',
-      }
+      };
 
-      expect(project.tags).toEqual(['JavaScript'])
-      expect(project.tags).toHaveLength(1)
-    })
+      expect(project.tags).toEqual(['JavaScript']);
+      expect(project.tags).toHaveLength(1);
+    });
 
     it('handles many tags', () => {
       const project: Project = {
         id: 'project-1',
         title: 'Test Project',
         description: 'A test project description',
-        tags: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Docker', 'AWS', 'Jest', 'Cypress'],
+        tags: [
+          'React',
+          'TypeScript',
+          'Node.js',
+          'MongoDB',
+          'Docker',
+          'AWS',
+          'Jest',
+          'Cypress',
+        ],
         imageUrl: 'https://example.com/image.jpg',
         imageAlt: 'Test project image',
         link: 'https://github.com/test/project',
-      }
+      };
 
-      expect(project.tags).toHaveLength(8)
-      expect(project.tags).toContain('React')
-      expect(project.tags).toContain('Cypress')
-    })
+      expect(project.tags).toHaveLength(8);
+      expect(project.tags).toContain('React');
+      expect(project.tags).toContain('Cypress');
+    });
 
     it('handles valid year ranges', () => {
-      const validYears = [1990, 2000, 2010, 2020, 2023, 2030]
-      
+      const validYears = [1990, 2000, 2010, 2020, 2023, 2030];
+
       validYears.forEach(year => {
         const project: Project = {
           id: `project-${year}`,
@@ -131,10 +140,10 @@ describe('Project Entity', () => {
           imageAlt: 'Test project image',
           link: 'https://github.com/test/project',
           year,
-        }
-        expect(project.year).toBe(year)
-      })
-    })
+        };
+        expect(project.year).toBe(year);
+      });
+    });
 
     it('handles different URL formats', () => {
       const validUrls = [
@@ -142,7 +151,7 @@ describe('Project Entity', () => {
         'https://example.com',
         'https://demo.project.com/path',
         'https://subdomain.example.co.uk',
-      ]
+      ];
 
       validUrls.forEach((link, index) => {
         const project: Project = {
@@ -153,10 +162,10 @@ describe('Project Entity', () => {
           imageUrl: 'https://example.com/image.jpg',
           imageAlt: 'Test project image',
           link,
-        }
-        expect(project.link).toBe(link)
-      })
-    })
+        };
+        expect(project.link).toBe(link);
+      });
+    });
 
     it('handles special characters in project data', () => {
       const project: Project = {
@@ -168,17 +177,25 @@ describe('Project Entity', () => {
         imageAlt: 'Image alt: 特殊な文字 and ñiño',
         link: 'https://github.com/user/repo-name-with_underscore',
         year: 2023,
-      }
+      };
 
-      expect(project.id).toBe('project-special-123_!')
-      expect(project.title).toBe('Project & Special "Characters" Test')
-      expect(project.description).toBe('Description with émojis 🚀 and spéciål chàrs')
-      expect(project.tags).toEqual(['React-CLI', 'TypeScript@Next', 'Node.js#Latest'])
-      expect(project.imageAlt).toBe('Image alt: 特殊な文字 and ñiño')
-      expect(project.link).toBe('https://github.com/user/repo-name-with_underscore')
-      expect(project.year).toBe(2023)
-    })
-  })
+      expect(project.id).toBe('project-special-123_!');
+      expect(project.title).toBe('Project & Special "Characters" Test');
+      expect(project.description).toBe(
+        'Description with émojis 🚀 and spéciål chàrs'
+      );
+      expect(project.tags).toEqual([
+        'React-CLI',
+        'TypeScript@Next',
+        'Node.js#Latest',
+      ]);
+      expect(project.imageAlt).toBe('Image alt: 特殊な文字 and ñiño');
+      expect(project.link).toBe(
+        'https://github.com/user/repo-name-with_underscore'
+      );
+      expect(project.year).toBe(2023);
+    });
+  });
 
   describe('Type safety and structure', () => {
     it('requires all mandatory properties', () => {
@@ -190,11 +207,11 @@ describe('Project Entity', () => {
         imageUrl: 'https://example.com/minimal.jpg',
         imageAlt: 'Minimal image',
         link: 'https://github.com/minimal/minimal',
-      }
+      };
 
-      expect(Object.keys(minimalProject)).toHaveLength(7)
-      expect(Object.keys(minimalProject)).not.toContain('year')
-    })
+      expect(Object.keys(minimalProject)).toHaveLength(7);
+      expect(Object.keys(minimalProject)).not.toContain('year');
+    });
 
     it('has proper property types', () => {
       const project: Project = {
@@ -205,15 +222,15 @@ describe('Project Entity', () => {
         imageUrl: 'https://example.com/test.jpg',
         imageAlt: 'Test alt',
         link: 'https://example.com/test',
-      }
+      };
 
-      expect(typeof project.id).toBe('string')
-      expect(typeof project.title).toBe('string')
-      expect(typeof project.description).toBe('string')
-      expect(Array.isArray(project.tags)).toBe(true)
-      expect(typeof project.imageUrl).toBe('string')
-      expect(typeof project.imageAlt).toBe('string')
-      expect(typeof project.link).toBe('string')
-    })
-  })
-})
+      expect(typeof project.id).toBe('string');
+      expect(typeof project.title).toBe('string');
+      expect(typeof project.description).toBe('string');
+      expect(Array.isArray(project.tags)).toBe(true);
+      expect(typeof project.imageUrl).toBe('string');
+      expect(typeof project.imageAlt).toBe('string');
+      expect(typeof project.link).toBe('string');
+    });
+  });
+});

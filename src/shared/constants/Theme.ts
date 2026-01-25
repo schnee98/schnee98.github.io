@@ -7,5 +7,4 @@ export const THEMES = {
   DARK: 'dark',
 } as const;
 
-export type Theme = typeof THEMES[keyof typeof THEMES];
-
+export type Theme = (typeof THEMES)[keyof typeof THEMES];

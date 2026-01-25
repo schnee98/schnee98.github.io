@@ -10,8 +10,8 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   return (
-    <Link 
-      href={project.link} 
+    <Link
+      href={project.link}
       className={styles.card}
       aria-label={`View project: ${project.title}`}
     >
@@ -34,11 +34,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
         <p className={styles.description}>{project.description}</p>
         <div className={styles.tags} role="list" aria-label="Technologies used">
           {project.tags.map((tag, index) => (
-            <span 
-              key={tag} 
-              className={styles.tag}
-              role="listitem"
-            >
+            <span key={tag} className={styles.tag} role="listitem">
               {tag}
             </span>
           ))}
@@ -47,4 +43,3 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
     </Link>
   );
 };
-

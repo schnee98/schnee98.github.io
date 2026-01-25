@@ -32,9 +32,9 @@ describe('Footer Component Accessibility', () => {
   test('social links are accessible', () => {
     render(<Footer />);
     const socialLinks = screen.getAllByRole('link');
-    
+
     expect(socialLinks.length).toBeGreaterThan(0);
-    
+
     socialLinks.forEach(link => {
       expect(link).toBeInTheDocument();
       expect(link).toHaveAttribute('href');
@@ -49,7 +49,7 @@ describe('Footer Component Accessibility', () => {
   test('social links are keyboard focusable', () => {
     render(<Footer />);
     const socialLinks = screen.getAllByRole('link');
-    
+
     socialLinks.forEach(link => {
       link.focus();
       expect(link).toHaveFocus();
@@ -60,13 +60,13 @@ describe('Footer Component Accessibility', () => {
   test('uses semantic HTML elements correctly', () => {
     render(<Footer />);
     const footer = screen.getByRole('contentinfo');
-    
+
     expect(footer.tagName).toBe('FOOTER');
-    
+
     // SocialLinks 컨테이너 확인
     const socialLinksContainer = footer.querySelector('.socialLinks');
     expect(socialLinksContainer).toBeInTheDocument();
-    
+
     // 개별 링크 확인
     const links = socialLinksContainer?.querySelectorAll('a');
     expect(links).toBeTruthy();
@@ -77,7 +77,7 @@ describe('Footer Component Accessibility', () => {
   test('external links have proper security attributes', () => {
     render(<Footer />);
     const socialLinks = screen.getAllByRole('link');
-    
+
     socialLinks.forEach(link => {
       const href = link.getAttribute('href');
       if (href?.startsWith('http')) {
@@ -91,12 +91,10 @@ describe('Footer Component Accessibility', () => {
   test('social links have descriptive aria-labels', () => {
     render(<Footer />);
     const socialLinks = screen.getAllByRole('link');
-    
+
     // 각 링크가 고유한 aria-label을 가지는지 확인
-    const ariaLabels = socialLinks.map(link => 
-      link.getAttribute('aria-label')
-    );
-    
+    const ariaLabels = socialLinks.map(link => link.getAttribute('aria-label'));
+
     expect(ariaLabels).toContain('LinkedIn');
     expect(ariaLabels).toContain('GitHub');
   });
@@ -105,12 +103,12 @@ describe('Footer Component Accessibility', () => {
   test('supports keyboard navigation scenarios', () => {
     render(<Footer />);
     const socialLinks = screen.getAllByRole('link');
-    
+
     socialLinks.forEach(link => {
       // Tab 키로 포커스 이동 가능 확인
       link.focus();
       expect(link).toHaveFocus();
-      
+
       // Enter/Space 키로 활성화 가능 확인 (링크의 경우)
       expect(link).toBeEnabled();
     });
@@ -119,15 +117,15 @@ describe('Footer Component Accessibility', () => {
   // Test 8: 스크린 리더 호환성
   test('provides good screen reader experience', () => {
     render(<Footer />);
-    
+
     // contentinfo 역할이 화면 리더에서 잘 인식되는지 확인
     const footer = screen.getByRole('contentinfo');
     expect(footer).toBeInTheDocument();
-    
+
     // SocialLinks가 명확한 목적을 전달하는지 확인
     const linkedinLink = screen.getByRole('link', { name: 'LinkedIn' });
     const githubLink = screen.getByRole('link', { name: 'GitHub' });
-    
+
     expect(linkedinLink).toBeInTheDocument();
     expect(githubLink).toBeInTheDocument();
   });
@@ -140,10 +138,10 @@ describe('Footer Component Accessibility', () => {
         <Footer />
       </div>
     );
-    
+
     const footers = screen.getAllByRole('contentinfo');
     expect(footers.length).toBeGreaterThan(0);
-    
+
     // 각 Footer에 SocialLinks가 있는지 확인
     footers.forEach(footer => {
       const socialLinks = footer.querySelectorAll('a');
@@ -154,23 +152,25 @@ describe('Footer Component Accessibility', () => {
   // Test 10: 접근성 룰 준수 확인
   test('follows accessibility best practices', async () => {
     const { container } = render(<Footer />);
-    
+
     // 접근성 규칙 준수 여부 확인
-    const interactiveElements = container.querySelectorAll('button, a, input, select, textarea');
-    
+    const interactiveElements = container.querySelectorAll(
+      'button, a, input, select, textarea'
+    );
+
     interactiveElements.forEach(element => {
       // 모든 인터랙티브 요소가 접근 가능해야 함
       expect(element).toBeVisible();
       expect(element).not.toBeDisabled();
     });
-    
+
     // 모든 링크가 의미있는 텍스트나 aria-label을 가지는지 확인
     const links = container.querySelectorAll('a');
     links.forEach(link => {
       const hasText = link.textContent?.trim().length > 0;
       const hasAriaLabel = link.hasAttribute('aria-label');
       const hasTitle = link.hasAttribute('title');
-      
+
       expect(hasText || hasAriaLabel || hasTitle).toBe(true);
     });
   });

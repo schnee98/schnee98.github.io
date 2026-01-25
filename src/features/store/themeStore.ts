@@ -13,12 +13,11 @@ interface ThemeState {
   setTheme: (theme: Theme) => void;
 }
 
-export const useThemeStore = create<ThemeState>((set) => ({
+export const useThemeStore = create<ThemeState>(set => ({
   theme: THEMES.LIGHT,
   toggleTheme: () =>
-    set((state) => ({
+    set(state => ({
       theme: state.theme === THEMES.LIGHT ? THEMES.DARK : THEMES.LIGHT,
     })),
-  setTheme: (theme) => set({ theme }),
+  setTheme: theme => set({ theme }),
 }));
-

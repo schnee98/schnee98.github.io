@@ -19,4 +19,3 @@ export interface ProjectFilters {
   readonly tags?: readonly string[];
   readonly year?: number;
 }
-

@@ -1,5 +1,5 @@
 {
-  "extends": ["next/core-web-vitals"],
+  "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
   "rules": {
     "prefer-const": "error",
     "no-var": "error",
@@ -17,4 +17,3 @@
     }
   ]
 }
-

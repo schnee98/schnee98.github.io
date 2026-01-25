@@ -19,7 +19,9 @@ export default function AboutPage() {
           <h2 className={`h2`}>About me</h2>
           <div className={styles.aboutGrid}>
             <div className={styles.aboutColumn}>
-              <h4 className="h4" style={{ fontWeight: 700 }}>{aboutData.title}</h4>
+              <h4 className="h4" style={{ fontWeight: 700 }}>
+                {aboutData.title}
+              </h4>
               <p className="paragraph">{aboutData.description}</p>
             </div>
             <div className={styles.profileColumn}>
@@ -73,7 +75,7 @@ export default function AboutPage() {
         <section className={styles.section}>
           <h3 className="h3">Experience</h3>
           <div className={styles.timeline}>
-            {experienceData.map((exp) => (
+            {experienceData.map(exp => (
               <div key={exp.id} className={styles.timelineItem}>
                 <p className={styles.timelinePeriod}>{exp.period}</p>
                 <div className={styles.timelineContent}>
@@ -105,7 +107,7 @@ export default function AboutPage() {
         <section className={styles.section}>
           <h3 className="h3">Education</h3>
           <div className={styles.timeline}>
-            {educationData.map((education) => (
+            {educationData.map(education => (
               <div key={education.id} className={styles.timelineItem}>
                 <p className={styles.timelinePeriod}>{education.period}</p>
                 <div className={styles.timelineContent}>
@@ -117,12 +119,12 @@ export default function AboutPage() {
                     <h4 className={`h4`}>{education.degree}</h4>
                   </div>
                   <ul className={styles.descriptionList}>
-                    {education.description.map((item) => (
+                    {education.description.map(item => (
                       <li key={item.text}>
                         {item.text}
                         {item.subItems && (
                           <ul className={styles.subList}>
-                            {item.subItems.map((subItem) => (
+                            {item.subItems.map(subItem => (
                               <li key={subItem}>{subItem}</li>
                             ))}
                           </ul>
@@ -139,4 +141,3 @@ export default function AboutPage() {
     </main>
   );
 }
-
