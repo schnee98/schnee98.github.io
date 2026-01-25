@@ -108,7 +108,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             </div>
           )}
 
-            <MarkdownContent content={content} />
+          <MarkdownContent content={content} />
         </article>
 
         {otherPosts.length > 0 && (

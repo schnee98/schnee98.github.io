@@ -4,7 +4,6 @@
     "prefer-const": "error",
     "no-var": "error",
     "no-console": "off",
-    "eqeqeq": ["error", "always"],
     "curly": ["error", "all"],
     "@next/next/no-img-element": "off"
   },

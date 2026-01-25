@@ -37,5 +37,5 @@ export function useIntersectContents({
     return () => {
       observer.disconnect();
     };
-  }, [ref]);
+  }, [ref, onEnter, onLeave, threshold]);
 }
