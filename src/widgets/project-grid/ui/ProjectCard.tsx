@@ -24,7 +24,6 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           priority={false}
           loading="lazy"
           placeholder="blur"
-          blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQAAA/9oADAMBAAIRAxEAPwAFAA/8="
         />
         <div className={styles.button} aria-hidden="true">
           <ExternalLinkIcon width={24} height={24} />

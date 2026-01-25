@@ -12,13 +12,14 @@ import type {
   Education,
   DescriptionItem,
 } from '@/entities/profile';
+import { getBlogList } from '@/features/blog/posts';
 
 export const profileData: Profile = {
   name: '박주은',
   title: 'Welcome!',
   description: [
     "This is Schnee. ",
-    "Frontend Developer interested in the core technologies and value of positive user experiences.",
+    "Frontend Developer interested in the value of solid, reliable and robust products.",
   ],
   imageUrl: 'https://framerusercontent.com/images/T8snMPOr6eSPI6cbUJhGXL8.jpg',
   email: {
@@ -219,12 +220,16 @@ export const projectsData: Project[] = [
   },
 ];
 
-export const blogPostsData: BlogPost[] = [
-  {
-    slug: 'what-i-learned-at-apple',
-    title: 'What I learned as a product designer at Apple.',
-    date: new Date('2022-12-30'),
-    imageUrl: 'https://picsum.photos/seed/blog1/400/300.jpg',
-  },
-];
+const blogListData = getBlogList('date-desc').slice(0, 6);
+
+export const blogPostsData = blogListData.map(post => ({
+  slug: post.slug,
+  title: post.title,
+  date: post.date,
+  description: post.description,
+  thumbnail: post.thumbnail,
+  imageUrl: post.imageUrl,
+  category: post.category,
+  tags: post.tags ? [...post.tags] : undefined,
+}));
 

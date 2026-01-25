@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
 import { projectsData } from '@/shared';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const tags = searchParams.get('tags')?.split(',');

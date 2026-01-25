@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './page.module.css';
 import { blogPostsData, profileData, projectsData } from '@/shared/data/mockData';
+import type { BlogListItem } from '@/types/blog';
 import { Header } from '@/widgets/header';
 import { SocialLinks } from '@/shared/ui/SocialLinks';
 import { BlogCard } from '@/widgets/blog-list';
@@ -47,7 +48,7 @@ export default function HomePage() {
           </div>
           <div className={styles.blogGrid} role="list" aria-label="Recent blog posts">
             {blogPostsData.map((post) => (
-              <BlogCard key={post.slug} post={post} />
+              <BlogCard key={post.slug} post={post as BlogListItem} />
             ))}
           </div>
         </section>

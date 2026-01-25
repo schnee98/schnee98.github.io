@@ -6,7 +6,7 @@ jest.mock('@/shared', () => ({
     title: 'Welcome!',
     description: [
       "This is Schnee. ",
-      "Frontend Developer interested in the core technologies and value of positive user experiences.",
+      "Frontend Developer interested in the value of solid, reliable and robust products.",
     ],
     imageUrl: 'https://framerusercontent.com/images/T8snMPOr6eSPI6cbUJhGXL8.jpg',
     email: {
