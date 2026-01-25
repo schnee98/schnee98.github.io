@@ -1,11 +1,13 @@
 /** @type {import('next').NextConfig} */
-import { fileURLToPath } from "url";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
   output: 'export',
+  trailingSlash: true,
+  skipTrailingSlashRedirect: true,
   images: {
     unoptimized: true,
     formats: ['image/webp', 'image/avif'],

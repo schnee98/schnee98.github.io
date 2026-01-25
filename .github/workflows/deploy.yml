@@ -45,6 +45,9 @@ jobs:
           NEXT_ANALYTICS_ID: ${{ secrets.NEXT_ANALYTICS_ID }}
         run: npm run build
 
+      - name: Remove RSC payload files
+        run: find ./out -type f -name "*.txt" -delete
+
       - name: Create .nojekyll
         run: touch ./out/.nojekyll
 
