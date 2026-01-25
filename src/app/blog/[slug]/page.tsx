@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { blogPostsData } from '@/shared';
-import { formatDate } from '@/shared/utils/formatDate';
+import { formatDate } from '@/shared/lib';
 import styles from './page.module.css';
 import { Header } from '@/widgets/header';
 import { BlogCard } from '@/widgets/blog-list';

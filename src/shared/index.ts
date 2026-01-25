@@ -5,7 +5,6 @@ export * from './ui/SocialLinks';
 export * from './ui/Logo';
 export * from './ui/Button';
 export * from './ui/ErrorBoundary';
-export * from './ui/LazyImage';
 export * from './ui/Icons';
 export * from './lib/formatDate';
 export * from './lib/index';
