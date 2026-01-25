@@ -1,0 +1,193 @@
+/* Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Color Tokens - Light Mode */
+  --color-primary: rgb(26, 26, 26);
+  --color-secondary: rgb(77, 77, 77);
+  --color-gray-1: rgb(120, 120, 120);
+  --color-gray-2: rgb(230, 230, 230);
+  --color-gray-3: rgb(242, 242, 242);
+  --color-white: rgb(255, 255, 255);
+  --color-bg-primary: rgb(252, 252, 252);
+  --color-accent-primary: rgb(219, 198, 112);
+  --color-accent-secondary: rgb(235, 218, 152);
+  --color-accent-tertiary: rgb(46, 184, 115);
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 40px;
+  --spacing-3xl: 56px;
+  --spacing-4xl: 80px;
+  --spacing-5xl: 160px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Container Max Width */
+  --container-max-width: 1024px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: rgb(242, 242, 242);
+    --color-secondary: rgb(153, 153, 153);
+    --color-gray-1: rgb(135, 135, 135);
+    --color-gray-2: rgb(33, 33, 33);
+    --color-gray-3: rgb(33, 33, 33);
+    --color-white: rgb(26, 26, 26);
+    --color-bg-primary: rgb(15, 15, 15);
+  }
+}
+
+html,
+body {
+  font-family: var(--font-family);
+  color: var(--color-primary);
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Typography Classes */
+.h1 {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: clamp(36px, 6vw, 72px);
+  line-height: 100%;
+  letter-spacing: -3.75px;
+}
+
+.h2 {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: clamp(32px, 5vw, 48px);
+  line-height: 100%;
+  letter-spacing: -2.5px;
+}
+
+.h3 {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -1px;
+}
+
+.h4 {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.25px;
+}
+
+.paragraph {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+  white-space: pre-line;
+}
+
+.body {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+}
+
+.button-text {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.5px;
+}
+
+.link-text {
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.5px;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-2xl);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+}
+
+/* Stack Layout Utilities */
+.stack-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.stack-center {
+  align-items: center;
+  justify-content: center;
+}
+
+/* Transition Utilities */
+.transition-default {
+  transition: all 0.2s ease-in-out;
+}
+

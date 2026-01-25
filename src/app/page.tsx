@@ -1,40 +1,59 @@
-import PostDescription from "@/components/post/PostDescription/PostDescription";
-import { getPosts } from "@/utils/postUtils";
-import HorizontalRule from "@/components/post/HorizontalRule/HorizontalRule";
-import layoutStyles from "./layout.module.css";
-import Navigation from "@/components/navigation/Navigation/Navigation";
-import Background from "@/components/header/Background/Background";
+import Link from 'next/link';
+import styles from './page.module.css';
+import { blogPostsData, profileData, projectsData } from '@/shared/data/mockData';
+import type { BlogListItem } from '@/types/blog';
+import { Header } from '@/widgets/header';
+import { SocialLinks } from '@/shared/ui/SocialLinks';
+import { BlogCard } from '@/widgets/blog-list';
 
-const email = "jooeun06161@gmail.com";
-const githubURL = "https://github.com/schnee98";
+export default function HomePage() {
+  // Selected work (first 4 items only)
+  const selectedProjects = projectsData.slice(0, 4);
 
-const Home = async () => {
-  const posts = await getPosts();
   return (
-    <>
-      <Navigation type="home" posts={posts} />
-      <header className={layoutStyles.header}>
-        <Background />
-      </header>
-      <main className={layoutStyles.main}>
-        <h1>Frontend Developer</h1>
-        <br />
-        <div>
-          📧 <a href={`mailto:${email}`}>{email}</a>
-        </div>
-        <div>
-          😺 <a href={githubURL}>{githubURL.replace("https://", "")}</a>
-        </div>
-        <HorizontalRule />
-        {posts.map((post, index) => (
-          <div key={`blog-post-${index}`}>
-            <PostDescription {...post} />
-            <HorizontalRule />
-          </div>
-        ))}
-      </main>
-    </>
-  );
-};
+    <main className={styles.main}>
+      <div className={styles.container}>
+        <Header />
 
-export default Home;
+        {/* Hero Section */}
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <div className={styles.heroText}>
+            <h1 id="hero-title" className="h1">{profileData.title}</h1>
+            <div>
+            {profileData.description.map((text, index) => (
+              <p key={text} className="paragraph">
+                {text}
+              </p>
+            ))}
+            </div>
+          </div>
+          <SocialLinks 
+            linkedin={profileData.linkedin.address} 
+            github={profileData.github.address} 
+            aria-label="Social media links"
+          />
+        </section>
+
+        {/* Recent Posts Section */}
+        <section className={styles.section} aria-labelledby="recent-posts-title">
+          <div className={styles.sectionHeader}>
+            <h2 id="recent-posts-title" className={`h3 ${styles.sectionTitle}`}>Recent posts</h2>
+            <Link 
+              href="/blog" 
+              className={styles.sectionLink}
+              aria-label="View all blog posts"
+            >
+              See All Posts
+            </Link>
+          </div>
+          <div className={styles.blogGrid} role="list" aria-label="Recent blog posts">
+            {blogPostsData.map((post) => (
+              <BlogCard key={post.slug} post={post as BlogListItem} />
+            ))}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
+}
+
