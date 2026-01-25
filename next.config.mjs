@@ -5,6 +5,7 @@ import path from "path";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const nextConfig = {
+  output: 'export',
   images: {
     unoptimized: true,
     formats: ['image/webp', 'image/avif'],
