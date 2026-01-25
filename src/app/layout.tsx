@@ -1,34 +1,33 @@
-import type { Metadata } from "next";
-import "@/styles/globals.css";
-import styles from "./layout.module.css";
-import { Analytics } from "./analytics";
-import { getPosts } from "@/utils/postUtils";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import { Navigation } from '@/widgets/header/ui/Navigation';
+import { Footer } from '@/widgets/footer/ui/Footer';
+import { ErrorBoundary } from '@/shared/ui/ErrorBoundary';
+import '@/shared/reset.css';
+import '@/shared/globals.css';
 
-const potionStyles =
-  "https://cdn.jsdelivr.net/gh/miloxeon/potion/potion.min.css";
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "schnee98 (박주은, Schnee) 블로그",
-  description: "주니어 프론트엔드 개발자 Schnee의 블로그입니다.",
+  title: 'Schnee - Frontend Developer',
+  description: 'Schnee. Frontend Developer',
 };
 
-export async function generateStaticParams() {
-  const posts = await getPosts();
-  return posts.map(({ slug }) => ({ slug }));
-}
-
-export default async function RootLayout({
+export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href={potionStyles} />
-        <Analytics />
-      </head>
-      <body className={styles.body}>{children}</body>
+    <html lang="ko">
+      <body className={inter.className}>
+        <Navigation />
+        <ErrorBoundary>
+          {children}
+        </ErrorBoundary>
+        <Footer />
+      </body>
     </html>
   );
 }
+

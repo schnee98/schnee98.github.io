@@ -1,0 +1,214 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-bg-primary);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-4xl);
+  width: 100%;
+  padding: var(--spacing-2xl);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3xl);
+  width: 100%;
+  max-width: var(--container-max-width);
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-2xl);
+  align-items: start;
+}
+
+.aboutColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.profileColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.imageWrapper {
+  width: 290px;
+  height: 180px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.contactLabel {
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+  color: var(--color-secondary);
+}
+
+.contactLink {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.25px;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.contactLink:hover {
+  color: var(--color-accent-primary);
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+}
+
+.timelineItem {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-gray-2);
+}
+
+.timelineItem:last-child {
+  border-bottom: none;
+}
+
+.timelinePeriod {
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+  color: var(--color-secondary);
+}
+
+.timelineContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.timelineHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timelineTitle {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.25px;
+  color: var(--color-primary);
+}
+
+.timelineSubtitle {
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+  color: var(--color-secondary);
+}
+
+.descriptionList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.descriptionList > li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+  color: var(--color-primary);
+}
+
+.descriptionList > li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-secondary);
+  font-weight: bold;
+}
+
+.subList {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-xs) 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.subList li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 15px;
+  line-height: 150%;
+  letter-spacing: -0.15px;
+  color: var(--color-secondary);
+}
+
+.subList li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-gray-1);
+  font-weight: normal;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: var(--spacing-lg);
+  }
+
+  .aboutGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .profileColumn {
+    order: -1;
+  }
+
+  .imageWrapper {
+    width: 100%;
+    max-width: 290px;
+    margin: 0 auto;
+  }
+
+  .timelineItem {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+}
+
