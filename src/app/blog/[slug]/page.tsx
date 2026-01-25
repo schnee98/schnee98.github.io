@@ -106,6 +106,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                 width={800}
                 height={400}
                 className={styles.featuredImage}
+                style={{ objectFit: 'contain' }}
                 priority
               />
             </div>
