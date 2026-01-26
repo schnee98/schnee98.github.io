@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
-import type { BlogListItem } from '@/types/blog';
 import { getBlogList } from '@/features/blog/posts';
-import { Header } from '@/widgets/header';
-import { Footer } from '@/widgets/footer';
+import type { BlogListItem } from '@/types/blog';
 import { BlogCard } from '@/widgets/blog-list';
+import { Footer } from '@/widgets/footer';
+import { Header } from '@/widgets/header';
+import { Metadata } from 'next';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -36,9 +36,7 @@ export default async function BlogPage() {
 
         <div className={styles.content}>
           <h1 className={`h1 ${styles.title}`}>Blog</h1>
-          <p className={styles.description}>
-            Frontend development thoughts, tutorials, and experiences
-          </p>
+          <p className={styles.description}>thoughts and experiences</p>
 
           {posts.length === 0 ? (
             <div className={styles.emptyState}>
