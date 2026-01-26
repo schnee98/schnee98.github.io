@@ -4,14 +4,8 @@
  * Data classification - Pure information
  */
 
+import type { Education, Experience, Profile } from '@/entities/profile';
 import type { Project } from '@/entities/project';
-import type { BlogPost } from '@/entities/blog-post';
-import type {
-  Profile,
-  Experience,
-  Education,
-  DescriptionItem,
-} from '@/entities/profile';
 import { getBlogList } from '@/features/blog/posts';
 
 export const profileData: Profile = {
@@ -27,12 +21,11 @@ export const profileData: Profile = {
     label: 'jooeun0616@gmail.com',
   },
   github: {
-    address: 'https://github.com/schnee98',
+    address: 'github.com/schnee98',
     label: 'github.com/schnee98',
   },
   linkedin: {
-    address:
-      'https://www.linkedin.com/in/%EC%A3%BC%EC%9D%80-%EB%B0%95-90281a290/',
+    address: 'linkedin.com/in/%EC%A3%BC%EC%9D%80-%EB%B0%95-90281a290/',
     label: '박주은',
   },
 };
