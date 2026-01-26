@@ -1,12 +1,12 @@
-import Image from 'next/image';
 import {
   aboutData,
-  experienceData,
   educationData,
+  experienceData,
   profileData,
 } from '@/shared';
-import styles from './page.module.css';
 import { Header } from '@/widgets/header';
+import Image from 'next/image';
+import styles from './page.module.css';
 
 export default function AboutPage() {
   return (
@@ -47,7 +47,7 @@ export default function AboutPage() {
                 <div className={styles.contactItem}>
                   <span className={styles.contactLabel}>Github</span>
                   <a
-                    href={profileData.github.address}
+                    href={`https://${profileData.github.address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.contactLink}
@@ -58,7 +58,7 @@ export default function AboutPage() {
                 <div className={styles.contactItem}>
                   <span className={styles.contactLabel}>LinkedIn</span>
                   <a
-                    href={profileData.linkedin.address}
+                    href={`https://${profileData.linkedin.address}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.contactLink}
