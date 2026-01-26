@@ -5,7 +5,6 @@
  */
 
 import type { Education, Experience, Profile } from '@/entities/profile';
-import type { Project } from '@/entities/project';
 import { getBlogList } from '@/features/blog/posts';
 
 export const profileData: Profile = {
@@ -128,89 +127,6 @@ export const educationData: Education[] = [
         ],
       },
     ],
-  },
-];
-
-export const projectsData: Project[] = [
-  {
-    id: '1',
-    title: 'Evoke',
-    description: 'Brand identity, Packaging',
-    tags: ['Brand identity', 'Packaging'],
-    imageUrl: 'https://picsum.photos/seed/project1/400/300.jpg',
-    imageAlt: 'Sample image from a project',
-    link: '/project-detail',
-    year: 2022,
-  },
-  {
-    id: '2',
-    title: 'Resonance',
-    description: 'Brand identity, Packaging',
-    tags: ['Brand identity', 'Packaging'],
-    imageUrl: 'https://picsum.photos/seed/project2/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2022,
-  },
-  {
-    id: '3',
-    title: 'Serenity',
-    description: 'Website, Print',
-    tags: ['Website', 'Print'],
-    imageUrl: 'https://picsum.photos/seed/project3/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2022,
-  },
-  {
-    id: '4',
-    title: 'Harmony',
-    description: 'Website, Print',
-    tags: ['Website', 'Print'],
-    imageUrl: 'https://picsum.photos/seed/project4/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2022,
-  },
-  {
-    id: '5',
-    title: 'Vibrance',
-    description: 'Brand identity, Packaging',
-    tags: ['Brand identity', 'Packaging'],
-    imageUrl: 'https://picsum.photos/seed/project5/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2023,
-  },
-  {
-    id: '6',
-    title: 'Dreamscape',
-    description: 'Brand identity, Packaging',
-    tags: ['Brand identity', 'Packaging'],
-    imageUrl: 'https://picsum.photos/seed/project6/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2023,
-  },
-  {
-    id: '7',
-    title: 'Stardust',
-    description: 'Website, Print',
-    tags: ['Website', 'Print'],
-    imageUrl: 'https://picsum.photos/seed/project7/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2023,
-  },
-  {
-    id: '8',
-    title: 'Origami',
-    description: 'Digital product, Packaging',
-    tags: ['Digital product', 'Packaging'],
-    imageUrl: 'https://picsum.photos/seed/project8/400/300.jpg',
-    imageAlt: 'Alt Text',
-    link: '/project-detail',
-    year: 2023,
   },
 ];
 
